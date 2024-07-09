@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --env-file=config.env server",
+    "test": "jest --verbose --config jest.config.mjs"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +16,12 @@
     "experss": "^0.0.1-security",
     "express": "^4.19.2",
     "mongodb": "^6.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
