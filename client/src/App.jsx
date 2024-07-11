@@ -40,7 +40,7 @@ const App = () => {
     return (
         <div className="w-full p-6">
             <Navbar />
-            <RegisterForm />
+            <Outlet />
         </div>
     )
 }

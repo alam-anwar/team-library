@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\assets",
+    "\\client\\src\\components",
+    "\\server",
+    "\\server\\db",
+    "\\server\\routes"
+  ],
+  "SelectedNode": "\\client\\src\\components\\Navbar.jsx",
+  "PreviewInSolutionExplorer": false
+}
