@@ -7,6 +7,8 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import Item from "./components/Item";
+import ItemList from "./components/ItemList";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/create",
-        element: <Record />,
+        element: <Item />,
       },
     ],
   },
