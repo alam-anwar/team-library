@@ -8,6 +8,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import NavbarLandingPage from './components/NavbarLandingPage'
 import LandingPage from './components/LandingPage'
+import CheckoutPage from './components/CheckoutPage'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -41,7 +42,7 @@ const App = () => {
     return (
         <div className="w-full p-6">
             <NavbarLandingPage />
-            <LandingPage />
+            <CheckoutPage />
         </div>
     )
 }

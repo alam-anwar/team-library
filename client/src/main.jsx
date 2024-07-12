@@ -9,6 +9,7 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import "./index.css";
 import LandingPage from "./components/LandingPage";
+import CheckoutPage from "./components/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/homepage",
         element: <LandingPage/>,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage/>,
       },
     ],
   },
