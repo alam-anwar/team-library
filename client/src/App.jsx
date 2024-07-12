@@ -6,7 +6,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
-
+import NavbarLandingPage from './components/NavbarLandingPage'
+import LandingPage from './components/LandingPage'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -39,8 +40,8 @@ import RegisterForm from './components/RegisterForm'
 const App = () => {
     return (
         <div className="w-full p-6">
-            <Navbar />
-            <Outlet />
+            <NavbarLandingPage />
+            <LandingPage />
         </div>
     )
 }
