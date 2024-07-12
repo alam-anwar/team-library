@@ -10,7 +10,7 @@ import LoginForm from "./components/LoginForm";
 import "./index.css";
 import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
-
+import ProfileView from "./components/ProfileView";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <CheckoutPage/>,
+      },
+      {
+        path: "/profile",
+        element: <ProfileView/>,
       },
     ],
   },
