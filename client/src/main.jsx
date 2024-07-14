@@ -11,6 +11,7 @@ import "./index.css";
 import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
 import ProfileView from "./components/ProfileView";
+import InventorySearch from "./components/InventorySearch";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <ProfileView/>,
       },
+      {
+        path: "/inventory",
+        element: <InventorySearch/>,
+      }
     ],
   },
 ]);

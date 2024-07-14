@@ -10,6 +10,7 @@ import NavbarLandingPage from './components/NavbarLandingPage'
 import LandingPage from './components/LandingPage'
 import CheckoutPage from './components/CheckoutPage'
 import ProfileView from './components/ProfileView'
+import InventorySearch from './components/InventorySearch'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -43,7 +44,7 @@ const App = () => {
     return (
         <div className="w-full p-6">
             <NavbarLandingPage />
-            <ProfileView />
+            <InventorySearch />
         </div>
     )
 }
