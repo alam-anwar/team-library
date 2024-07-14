@@ -9,8 +9,7 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
-import Item from "./components/Item";
-import ItemList from "./components/ItemList";
+import ItemForm from "./components/ItemForm";
 import "./index.css";
 import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
@@ -51,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <Item/>,
+        element: <ItemForm/>,
       }
     ],
   },
