@@ -44,7 +44,7 @@ const App = () => {
     return (
         <div className="w-full p-6">
             <NavbarLandingPage />
-            <InventorySearch />
+            <Outlet />
         </div>
     )
 }
