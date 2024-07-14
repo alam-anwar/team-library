@@ -48,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/inventory",
         element: <InventorySearch/>,
+      },
+      {
+        path: "/create",
+        element: <Item/>,
       }
     ],
   },
