@@ -18,37 +18,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RecordList />,
+        element: <RecordList />, //Will be ItemList
       },
-    ],
-  },
-  {
-    path: "/edit/:id",
-    element: <App />,
-    children: [
       {
         path: "/edit/:id",
         element: <Record />,
       },
-    ],
-  },
-  {
-    path: "/signup",
-    element: <App />,
-    children: [
       {
         path: "/signup",
         element: <Record />,
       },
-    ],
-  },
-  {
-    path: "/create",
-    element: <App />,
-    children: [
       {
         path: "/create",
-        element: <Item />,
+        element: <Item />, //Will be ItemForm??
       },
     ],
   },
