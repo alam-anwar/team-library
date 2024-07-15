@@ -4,7 +4,13 @@ import Navbar from "./components/Navbar"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
+import NavbarLandingPage from './components/NavbarLandingPage'
+import LandingPage from './components/LandingPage'
+import CheckoutPage from './components/CheckoutPage'
+import ProfileView from './components/ProfileView'
+import InventorySearch from './components/InventorySearch'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -37,7 +43,7 @@ import './App.css'
 const App = () => {
     return (
         <div className="w-full p-6">
-            <Navbar />
+            <NavbarLandingPage />
             <Outlet />
         </div>
     )
