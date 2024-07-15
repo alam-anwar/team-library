@@ -1,5 +1,5 @@
 import request from 'supertest'
-import app from '../app.js'
+import app from '../server.js'
 
 describe("Example tests", () => {
     describe("Addition", () => {
@@ -22,5 +22,9 @@ describe("POST /test", () => {
         })
 
     })
+
+    // if the user is creating an account:
+
+        // 
 
 })
