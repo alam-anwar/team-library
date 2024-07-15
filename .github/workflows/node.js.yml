@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  test-server:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,7 +25,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Test Server
+        cache-dependency-path: './server/package-lock.json'
+    - name: Test server
       working-directory: ./server
       run: |
         npm install
