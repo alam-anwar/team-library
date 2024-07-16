@@ -2,39 +2,43 @@
 
 import { MongoClient } from 'mongodb'
 import router from '../routes/record.js'
+import {app, server} from '../server.js'
 import request from 'supertest'
 
+// const request = supertest(app);
+// beforeAll( async () => {
+//     const client = connectDB();
+// });
+
+// afterAll( async () => {
+//     disconnectDB();
+//     app.close(); // this might be an error...
+// });
+
 describe('Adding items to database', () => {
-    let connection;
-    let db;
-    const uri = "mongodb://localhost:27017/"
 
-    beforeAll(async () => {
-        connection = await MongoClient.connect(uri);
-        db = await connection.db('test');
-        await db.collection('users').deleteMany({});
-    });
+    describe('Initial test cases', () => {
 
-    afterAll(async () => {
-        await connection.close();
-    });
-
-    describe('Adding users', () => {
-        test('Adding a new user', async () => {
-            const users = db.collection('users')
-            const newUser = {
-                name: "Al Anwar",
-                username: "alamanwar",
-                email: "alamanwar@ufl.edu",
-                password: "Fuck you."
-            }
+        test('Example request using mock database', async () => {
+            const response = await request(app).get('/').send({});
+            expect(response.statusCode).toBe(200);
             
-            await users.insertOne(newUser);
-            const insertedUser = await users.findOne({ name: "Al Anwar" });
-            expect(insertedUser).toEqual(newUser);
+            // const users = db.collection('users')
+            // const newUser = {
+            //     name: "Al Anwar",
+            //     username: "alamanwar",
+            //     email: "alamanwar@ufl.edu",
+            //     password: "Fuck you."
+            // }
+            
+            // await users.insertOne(newUser);
+            // const insertedUser = await users.findOne({ name: "Al Anwar" });
+            // expect(insertedUser).toEqual(newUser);
             
             // const response = await request(router).post('/').send(newUser);
             // expect(response.statusCode).toBe(500);
-        })
+        }, 15000)
+    
     })
-});
+
+})

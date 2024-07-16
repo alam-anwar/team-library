@@ -23,8 +23,34 @@ describe("POST /test", () => {
 
     })
 
-    // if the user is creating an account:
-
-        // 
-
 })
+
+describe('Adding items to database', () => {
+
+    describe('Initial test cases', () => {
+        test('Example request using mock database', async () => {
+            const response = await request(app).post('/').send({
+                name: "test",
+                position: "test",
+                level: "test"
+            });
+
+            expect(response.status).toBe(204);
+            
+            // const users = db.collection('users')
+            // const newUser = {
+            //     name: "Al Anwar",
+            //     username: "alamanwar",
+            //     email: "alamanwar@ufl.edu",
+            //     password: "Fuck you."
+            // }
+            
+            // await users.insertOne(newUser);
+            // const insertedUser = await users.findOne({ name: "Al Anwar" });
+            // expect(insertedUser).toEqual(newUser);
+            
+            // const response = await request(router).post('/').send(newUser);
+            // expect(response.statusCode).toBe(500);
+        }, 15000)
+    })
+});

@@ -9,7 +9,7 @@ app.use(express.json());
 app.use("/record", records);
 
 app.post('/test', (req, res) => {
-    res.send("Hello!")
+    res.send("hello");
 })
 
 // start the Express server
