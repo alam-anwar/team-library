@@ -6,11 +6,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/record", records);
+app.use("/record", records.router);
 
-app.post('/test', (req, res) => {
-    res.send("hello");
-})
+// we still need to test the findAll() function,
+// but as this stands this makes the test case in server.test.js
+// work.
+
+app.get('/', (req, res) => {
+    res.send(records.findAll()).status(200);
+});
 
 // start the Express server
 const PORT = process.env.PORT || 5050;

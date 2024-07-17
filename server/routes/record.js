@@ -81,4 +81,40 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-export default router;
+// BELOW THIS POINT --- TURNING GET/POST/PATCH/DELETE CALLS
+// INTO THEIR OWN FUNCTIONS SO THEY CAN BE USED IN SERVER.JS
+
+// !!! DO NOT DELETE ANYTHING ABOVE THIS COMMENT! !!!
+// !!! THOSE CALLS ARE STILL LOAD BEARING !!!
+
+const findAll = async () => {
+    let collection = await db.collection("records");
+    let results = await collection.find({}).toArray();
+    return results;
+}
+
+const findOne = async () => {
+    let collection = await db.collection("records");
+    let query = { _id: new ObjectId(req.params.id) };
+    let result = await collection.findOne(query);
+    
+    return (!result) ? -1 : result;
+}
+
+const addItem = async () => {
+    try {
+        let newDocument = {
+            name: req.body.name,
+            position: req.body.position,
+            level: req.body.level,
+        };
+        let collection = await db.collection("records");
+        let result = await collection.insertOne(newDocument);
+        res.send(result).status(204);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error adding record");
+    }
+}
+
+export default {router, findAll, findOne};

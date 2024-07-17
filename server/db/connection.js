@@ -71,6 +71,6 @@ try {
   console.error(err);
 }
 
-let db = client.db((process.env.NODE_ENV === "test") ? "test" : "employees");
+let db = client.db("employees");
 
 export default db;
