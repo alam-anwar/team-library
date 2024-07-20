@@ -16,6 +16,13 @@ app.get('/', (req, res) => {
     res.send(records.findAll()).status(200);
 });
 
+// todo: fix
+app.post('/register', (req, res) => {
+    res.status(400).send({
+        message: "Invalid username"
+    });
+});
+
 // start the Express server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
