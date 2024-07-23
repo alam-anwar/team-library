@@ -71,6 +71,8 @@ try {
   console.error(err);
 }
 
-let db = client.db("employees");
+// I am stpupid - Al
+let db = client.db((process.env.NODE_ENV === "test") ? "test" : "prod");
+
 
 export default db;
