@@ -87,6 +87,8 @@ router.delete("/:id", async (req, res) => {
 // !!! DO NOT DELETE ANYTHING ABOVE THIS COMMENT! !!!
 // !!! THOSE CALLS ARE STILL LOAD BEARING !!!
 
+ 
+
 const findAllItems = async () => {
     let collection = await db.collection("items");
     let results = await collection.find({}).toArray();
@@ -105,24 +107,34 @@ const findAllEvents = async () => {
     return results;
 }
 
-const findOne = async (coll) => {
-    let collection = await db.collection(coll);
-    let query = { _id: new ObjectId(req.params.id) };
+const findOneItem = async (query) => {
+    let collection = await db.collection("items");
     let result = await collection.findOne(query);
-    
     return (!result) ? -1 : result;
 }
 
-const findOneItem = async () => {
-    return await findOne("items");
+const findOneUser = async (query) => {
+    let collection = await db.collection("users");
+    let result = await collection.findOne(query);
+    return (!result) ? -1 : result;
 }
 
-const findOneUser = async () => {
-    return await findOne("users");
+const findOneEvent = async (query) => {
+    let collection = await db.collection("events");
+    let result = await collection.findOne(query);
+    return (!result) ? -1 : result;
 }
 
-const findOneEvent = async () => {
-    return await findOne("events");
+const numUsers = async () => {
+    return db.collection("users").count();
+}
+
+const numItems = async () => {
+    return db.collection("items").count();
+}
+
+const numEvents = async () => {
+    return db.collection("events").count(); 
 }
 
 const initializeTestDatabase = async () => {
@@ -131,7 +143,7 @@ const initializeTestDatabase = async () => {
             throw new Error("initializeTestDatabase() called, but you are not in a testing environment.")
         }
 
-        let userTest = await db.collection("users-test");
+        let userTest = await db.collection("users");
         await userTest.insertOne({
             name: "Al Anwar",
             email: "al@ufl.edu",
@@ -157,7 +169,7 @@ const initializeTestDatabase = async () => {
             permission: "employee"
         });
 
-        let itemTest = await db.collection("items-test");
+        let itemTest = await db.collection("items");
         await itemTest.insertOne({
             name: "Harry Potter and the Sorcerer's Stone",
             author: "J. K. Rowling"
@@ -175,12 +187,26 @@ const initializeTestDatabase = async () => {
             author: "Alexandre Dumas"
         });
 
-        let eventTest = await db.collection("events-test");
+        let eventTest = await db.collection("events");
         await eventTest.insertOne({
             name: "Ryan Finally Attends Discussion",
             date: "08/01/2029",
             location: "Malachowsky 2001"
         });
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+const tearDownTestDatabase = async () => {
+    try {
+        if (process.env.NODE_ENV != "test") {
+            throw new Error("tearDownTestDatabase() called, but you are not in a testing environment.")
+        }
+
+        await db.collection("users").deleteMany({});
+        await db.collection("items").deleteMany({});
+        await db.collection("events").deleteMany({});
     } catch(err) {
         console.log(err);
     }
@@ -220,5 +246,6 @@ export default {
     router, 
     findAllItems, findAllUsers, findAllEvents, 
     findOneItem, findOneUser, findOneEvent,
-    initializeTestDatabase
+    numItems, numUsers, numEvents,
+    initializeTestDatabase, tearDownTestDatabase
 };
