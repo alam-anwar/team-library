@@ -1,0 +1,3 @@
+server/node_modules/.cache/mongodb-memory-server/**
+server/node_modules/mongodb-memory-server/**
+server/node_modules/mongodb-memory-server-core/**

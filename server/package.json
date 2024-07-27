@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --env-file=config.env server",
-    "test": "jest"
+    "test": "npx cross-env NODE_ENV=test jest --verbose --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +14,15 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "latest",
-    "mongodb": "^6.8.0"
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.8",
+    "@shelf/jest-mongodb": "^4.3.2",
     "babel-jest": "^29.7.0",
+    "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.2"
