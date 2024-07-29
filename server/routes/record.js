@@ -85,9 +85,7 @@ router.delete("/:id", async (req, res) => {
 // INTO THEIR OWN FUNCTIONS SO THEY CAN BE USED IN SERVER.JS
 
 // !!! DO NOT DELETE ANYTHING ABOVE THIS COMMENT! !!!
-// !!! THOSE CALLS ARE STILL LOAD BEARING !!!
-
- 
+// !!! THOSE CALLS ARE STILL LOAD BEARING !!! 
 
 const findAllItems = async () => {
     let collection = await db.collection("items");
@@ -125,16 +123,50 @@ const findOneEvent = async (query) => {
     return (!result) ? -1 : result;
 }
 
+const addOneUser = async(user) => {
+    let collection = await db.collection("users");
+    let result = await collection.insertOne(user);
+    return result;
+}
+
+const addOneItem = async(user) => {
+    let collection = await db.collection("items");
+    let result = await collection.insertOne(user);
+    return result;
+}
+
+const addOneEvent = async(user) => {
+    let collection = await db.collection("events");
+    let result = await collection.insertOne(user);
+    return result;
+}
+
+// num_____ functions use a command to query the database
+// command should return something in the format 
+// {
+//     "n" : _______
+//     "ok": 1
+// }
+
 const numUsers = async () => {
-    return db.collection("users").count();
+    const num = await db.command({
+        count: 'users'
+    });
+    return num.n;
 }
 
 const numItems = async () => {
-    return db.collection("items").count();
+    const num = await db.command({
+        count: 'items'
+    });
+    return num.n;
 }
 
 const numEvents = async () => {
-    return db.collection("events").count(); 
+    const num = await db.command({
+        count: 'events'
+    });
+    return num.n; 
 }
 
 const initializeTestDatabase = async () => {
@@ -212,40 +244,11 @@ const tearDownTestDatabase = async () => {
     }
 }
 
-// const addItem = async (coll, item) => {
-//     try {
-//         // assuming the item was deemed valid in server.js
-//         let collection = await db.collection(coll);
-//         let result = await collection.insertOne(item);
-//         return (!result) ? -1 : 1;
-//     } catch (err) {
-//         console.log("Error adding record! See below.");
-//         console.error(err);
-//     }
-// }
-
-// const updateItem = async (coll, item) => {
-//     try {
-//         const updates = {
-//             $set: {
-//                 name: req.body.name,
-//                 position: req.body.position,
-//                 level: req.body.level,
-//             },
-//         };
-//         let collection = await db.collection("records");
-//         let result = await collection.insertOne(newDocument);
-//         return (!result) ? -1 : 1;
-//     } catch (err) {
-//         console.log("Error adding record! See below.");
-//         console.error(err);
-//     }
-// }
-
 export default {
     router, 
     findAllItems, findAllUsers, findAllEvents, 
     findOneItem, findOneUser, findOneEvent,
     numItems, numUsers, numEvents,
+    addOneUser, addOneItem, addOneEvent,
     initializeTestDatabase, tearDownTestDatabase
 };
