@@ -169,6 +169,24 @@ const numEvents = async () => {
     return num.n; 
 }
 
+const updateItem = async (id, changes) => {
+    let collection = await db.collection("items");
+    let result = await collection.updateOne(id, changes);
+    return result;
+}
+
+const updateUser = async (id, changes) => {
+    let collection = await db.collection("users");
+    let result = await collection.updateOne(id, changes);
+    return result;
+}
+
+const updateEvent = async (id, changes) => {
+    let collection = await db.collection("events");
+    let result = await collection.updateOne(id, changes);
+    return result;
+}
+
 const initializeTestDatabase = async () => {
     try {
         if (process.env.NODE_ENV != "test") {
@@ -247,8 +265,9 @@ const tearDownTestDatabase = async () => {
 export default {
     router, 
     findAllItems, findAllUsers, findAllEvents, 
-    findOneItem, findOneUser, findOneEvent,
-    numItems, numUsers, numEvents,
-    addOneUser, addOneItem, addOneEvent,
+    findOneItem,  findOneUser,  findOneEvent,
+    numItems,     numUsers,     numEvents,
+    addOneItem,   addOneUser,   addOneEvent,
+    updateItem,   updateUser,   updateEvent,
     initializeTestDatabase, tearDownTestDatabase
 };

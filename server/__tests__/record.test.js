@@ -226,3 +226,26 @@ describe("Add functions", () => {
     });
 
 });
+
+describe("Update functions", () => {
+
+    describe("Updating users", () => {
+
+        test("Promote Abbhinav from member to employee", async () => {
+            const abbhinav = await records.findOneUser({
+                name: "Abbhinav Sriram"
+            });
+            console.log(abbhinav);
+            const changes = {
+                $set: {
+                    permission: "employee"
+                }
+            };
+            const result = await records.updateUser(abbhinav._id, changes);
+            console.log(result);
+            expect(result).toBeDefined();
+        })
+
+    });
+
+});
