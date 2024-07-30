@@ -11,6 +11,9 @@ import LandingPage from './components/LandingPage'
 import CheckoutPage from './components/CheckoutPage'
 import ProfileView from './components/ProfileView'
 import InventorySearch from './components/InventorySearch'
+import EventsPage from './components/EventsPage'
+import EventsList from './components/CreateEvent'
+import MemberNavbar from './components/MemberNavBar'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -43,7 +46,7 @@ import InventorySearch from './components/InventorySearch'
 const App = () => {
     return (
         <div className="w-full p-6">
-            <NavbarLandingPage />
+            <MemberNavbar />
             <Outlet />
         </div>
     )

@@ -15,6 +15,9 @@ import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
 import ProfileView from "./components/ProfileView";
 import InventorySearch from "./components/InventorySearch";
+import MemberNavbar from "./components/MemberNavBar";
+import CheckedOut from "./components/ViewCheckedOut";
+import EventsPage from "./components/EventsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,7 +54,29 @@ const router = createBrowserRouter([
       {
         path: "/create",
         element: <ItemForm/>,
-      }
+      },
+      {
+        path:"/member/checkedout",
+        element: (
+          <MemberNavbar/>,
+          <CheckedOut/>
+        ),
+      },
+      {
+        path:"/member/checkedout",
+        element: (
+          <MemberNavbar/>,
+          <CheckedOut/>
+        ),
+      },
+      {
+        path:"/member/eventspage",
+        element: (
+          <MemberNavbar/>,
+          <EventsPage/>
+        ),
+      },
+
     ],
   },
 ]);
