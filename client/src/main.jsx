@@ -18,6 +18,11 @@ import InventorySearch from "./components/InventorySearch";
 import MemberNavbar from "./components/MemberNavBar";
 import CheckedOut from "./components/ViewCheckedOut";
 import EventsPage from "./components/EventsPage";
+import EmployeeNavbar from "./components/EmployeeNavBar";
+import ProcessReturns from "./components/ProcessReturns";
+import CreateMember from "./components/CreateMember";
+import EmployeeCalendar from "./components/EmployeeCalendar";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,58 +30,81 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RegisterForm/>,
+        element: <RegisterForm />,
       },
       {
         path: "/login",
-        element: <LoginForm/>,
+        element: <LoginForm />,
       },
       {
         path: "/register",
-        element: <RegisterForm/>,
+        element: <RegisterForm />,
       },
       {
         path: "/homepage",
-        element: <LandingPage/>,
+        element: <LandingPage />,
       },
       {
         path: "/checkout",
-        element: <CheckoutPage/>,
+        element: <CheckoutPage />,
       },
       {
         path: "/profile",
-        element: <ProfileView/>,
+        element: <ProfileView />,
       },
       {
         path: "/inventory",
-        element: <InventorySearch/>,
+        element: <InventorySearch />,
       },
       {
         path: "/create",
-        element: <ItemForm/>,
+        element: <ItemForm />,
       },
       {
-        path:"/member/checkedout",
+        path: "/member/checkedout",
         element: (
-          <MemberNavbar/>,
-          <CheckedOut/>
+          <>
+            <MemberNavbar />
+            <CheckedOut />
+          </>
         ),
       },
       {
-        path:"/member/checkedout",
+        path: "/member/eventspage",
         element: (
-          <MemberNavbar/>,
-          <CheckedOut/>
+          <>
+            <MemberNavbar />
+            <EventsPage />
+          </>
         ),
       },
       {
-        path:"/member/eventspage",
+        path: "/employee/processreturn",
         element: (
-          <MemberNavbar/>,
-          <EventsPage/>
+          <>
+            <EmployeeNavbar />
+            <ProcessReturns />
+          </>
         ),
       },
-
+      {
+        path: "/employee/createmember",
+        element: (
+          <>
+            <EmployeeNavbar />
+            <CreateMember />
+          </>
+        ),
+      },
+      {
+        path: "/employee/calendar",
+        element: (
+          <>
+            <EmployeeNavbar />
+            <EmployeeCalendar />
+          </>
+        ),
+      },
     ],
   },
 ]);

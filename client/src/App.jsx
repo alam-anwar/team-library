@@ -14,6 +14,7 @@ import InventorySearch from './components/InventorySearch'
 import EventsPage from './components/EventsPage'
 import EventsList from './components/CreateEvent'
 import MemberNavbar from './components/MemberNavBar'
+import EmployeeNavbar from './components/EmployeeNavBar'
 // function App() {
 //   const [count, setCount] = useState(0)
 
@@ -46,7 +47,6 @@ import MemberNavbar from './components/MemberNavBar'
 const App = () => {
     return (
         <div className="w-full p-6">
-            <MemberNavbar />
             <Outlet />
         </div>
     )
