@@ -169,21 +169,36 @@ const numEvents = async () => {
     return num.n; 
 }
 
-const updateItem = async (id, changes) => {
+/** 
+ *  might change the update functions below to just pass the whole item into it.
+ *  especially since the updateOne() function takes in a filter, passing in the whole item
+ *  might help ensure the right document is being changed.
+ */
+
+const updateItem = async (item, changes) => {
     let collection = await db.collection("items");
-    let result = await collection.updateOne(id, changes);
+    let filter = {
+        _id: item._id
+    }
+    let result = await collection.updateOne(filter, changes);
     return result;
 }
 
-const updateUser = async (id, changes) => {
+const updateUser = async (item, changes) => {
     let collection = await db.collection("users");
-    let result = await collection.updateOne(id, changes);
+    let filter = {
+        _id: item._id
+    }
+    let result = await collection.updateOne(filter, changes);
     return result;
 }
 
-const updateEvent = async (id, changes) => {
+const updateEvent = async (item, changes) => {
     let collection = await db.collection("events");
-    let result = await collection.updateOne(id, changes);
+    let filter = {
+        _id: item._id
+    }
+    let result = await collection.updateOne(filter, changes);
     return result;
 }
 

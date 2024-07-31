@@ -1,4 +1,5 @@
 import records from "../routes/record.js"
+import { ObjectId } from "mongodb"
 
 /**
  * 
@@ -235,16 +236,88 @@ describe("Update functions", () => {
             const abbhinav = await records.findOneUser({
                 name: "Abbhinav Sriram"
             });
-            console.log(abbhinav);
+
             const changes = {
                 $set: {
                     permission: "employee"
                 }
             };
-            const result = await records.updateUser(abbhinav._id, changes);
-            console.log(result);
-            expect(result).toBeDefined();
-        })
+            const result = await records.updateUser(abbhinav, changes);
+            expect(result.acknowledged).toBe(true);
+            
+            const newAbbhinav = await records.findOneUser({
+                name: "Abbhinav Sriram"
+            });
+            expect(newAbbhinav.permission).toBe("employee");
+        });
+
+        test("Change Al's username", async () => {
+            const al = await records.findOneUser({
+                name: "Al Anwar"
+            });
+
+            const changes = {
+                $set: {
+                    username: "ferrari_sf90"
+                }
+            };
+
+            const result = await records.updateUser(al, changes);
+            expect(result.acknowledged).toBe(true);
+
+            const newAl = await records.findOneUser({
+                name: "Al Anwar"
+            });
+            expect(newAl.username).toBe("ferrari_sf90");
+        });
+
+        test("Change Bobby's name", async () => {
+            const robert = await records.findOneUser({
+                name: "Robert Schneeberger"
+            });
+
+            const changes = {
+                $set: {
+                    name: "Schneeberger, Robert"
+                }
+            };
+
+            const result = await records.updateUser(robert, changes);
+            expect(result.acknowledged).toBe(true);
+
+            const schneeberger = await records.findOneUser({
+                name: "Schneeberger, Robert"
+            });
+
+            // since the name is what was changed, and since we're looking for the new name,
+            // there's no point putting an actual value here. if it exists, the name was actually 
+            // changed.
+            expect(schneeberger).toBeDefined();
+        });
+
+    });
+
+    describe("Updating items", () => {
+
+    });
+
+    describe("Updating events", () => {
+
+    });
+
+});
+
+describe("Remove functions", () => {
+
+    describe("Remove users", () => {
+
+    });
+
+    describe("Remove items", () => {
+
+    });
+
+    describe("Remove events", () => {
 
     });
 
