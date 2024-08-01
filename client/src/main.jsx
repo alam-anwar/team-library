@@ -9,7 +9,6 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
-import ItemForm from "./components/ItemForm";
 import "./index.css";
 import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
@@ -22,6 +21,12 @@ import EmployeeNavbar from "./components/EmployeeNavBar";
 import ProcessReturns from "./components/ProcessReturns";
 import CreateMember from "./components/CreateMember";
 import EmployeeCalendar from "./components/EmployeeCalendar";
+import DeleteAccount from "./components/DeleteAccount";
+import AdminNavbar from "./components/AdminNavBar";
+import AdminCalendar from "./components/AdminCalendar";
+import ModifyInventory from "./components/EditInventory";
+import Item from "./components/ItemForm";
+import UpdateEvent from "./components/UpdateEvent";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <ItemForm />,
+        element: <Item />,
       },
       {
         path: "/member/checkedout",
@@ -79,7 +84,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/employee/processreturn",
+        path: "/processreturn",
         element: (
           <>
             <EmployeeNavbar />
@@ -88,7 +93,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/employee/createmember",
+        path: "/createmember",
         element: (
           <>
             <EmployeeNavbar />
@@ -105,6 +110,52 @@ const router = createBrowserRouter([
           </>
         ),
       },
+      {
+        path: "/admin/deleteaccount",
+        element: (
+          <>
+            <AdminNavbar />
+            <DeleteAccount />
+          </>
+        ),
+      },
+      {
+        path: "/admin/calendar",
+        element: (
+          <>
+            <AdminNavbar />
+            <AdminCalendar />
+          </>
+        ),
+      },
+      {
+        path: "/modifyinventory",
+        element: (
+          <>
+            <AdminNavbar />
+            <ModifyInventory />
+          </>
+        ),
+      },
+      {
+        path: "/updateitem",
+        element: (
+          <>
+            <AdminNavbar />
+            <Item/>
+          </>
+        ),
+      },
+      {
+        path: "/updateevent",
+        element: (
+          <>
+            <AdminNavbar />
+            <UpdateEvent/>
+          </>
+        ),
+      },
+      
     ],
   },
 ]);

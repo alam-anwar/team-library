@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { NavLink } from "react-router-dom";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 
-function EmployeeCalendar() {
+function AdminCalendar() {
   const [activeTab, setActiveTab] = useState('view');
 
   const renderContent = () => {
@@ -14,6 +15,8 @@ function EmployeeCalendar() {
       return <ViewEvents />;
     } else if (activeTab === 'create') {
       return <CreateEvent />;
+    } else if (activeTab === 'requests') {
+      return <ViewRequests />;
     } else{
       return <ViewEvents />;
     }
@@ -33,6 +36,12 @@ function EmployeeCalendar() {
           onClick={() => setActiveTab('create')}
         >
           Create Event Request
+        </button>
+        <button
+          className={activeTab === 'requests' ? 'active' : ''}
+          onClick={() => setActiveTab('requests')}
+        >
+          View Event Requests
         </button>
       </div>
       <div className="tab-content">
@@ -124,7 +133,9 @@ function ViewEvents() {
               <p>Location: Al's house</p>
               <p>Date: 7/30/2024</p>
             </div>
-            <button style={{ backgroundColor: 'green', padding: '5px', margin: '10px', borderRadius: '5px'}}>RSVP</button>
+            <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/updateevent">
+              Modify
+            </NavLink>          
           </div>
           </div>
         </div>
@@ -203,7 +214,7 @@ function CreateEvent() {
 
         <input
           type="submit"
-          value="Submit Request to Admin"
+          value="Create Event"
           className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
         />
       </form>
@@ -211,4 +222,42 @@ function CreateEvent() {
   );
 }
 
-export default EmployeeCalendar;
+const ViewRequests = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    // Perform search logic here
+  };
+
+  return (
+    <div>
+      <h1 style={{ fontSize: '2em' }}>View Event Requests</h1>
+      <input
+        type="text"
+        placeholder="  Search..."
+        value={searchTerm}
+        onChange={handleSearch}
+        style={{ width: '800px', border: '2px solid' }}
+      />
+      {/* example search result is below */}
+      <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <p>Request Sender: abbhinav.sriram@ufl.edu</p>
+          <p>Event Name: Al's Siesta</p>
+          <p>Description: Description Placeholder</p>
+          <p>Event Date: 05/04/2029</p>
+          <p>Event Time: 7:00pm</p>
+          <p>Event Location: Al's House</p>
+        </div>
+        <button className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3">
+        Confirm Request
+        </button>
+        <button className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3">
+        Delete Request
+        </button>
+      </div>
+    </div>
+  );
+};
+export default AdminCalendar;
