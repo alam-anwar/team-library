@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-calendar": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react-calendar": "^4.1.0"
+  }
+}

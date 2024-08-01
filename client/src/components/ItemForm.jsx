@@ -28,13 +28,13 @@ export default function Item() {
   }
 
   const navigateToHome = () => {
-    navigate("/");
+    navigate("/modifyinventory");
   };
 
   // Input Form
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Create/Update Item</h3>
+      <h3 className="text-lg font-semibold p-4">Update Item</h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
