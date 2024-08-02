@@ -5,10 +5,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
+import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import ItemForm from "./components/ItemForm";
 import "./index.css";
-
+import LandingPage from "./components/LandingPage";
+import CheckoutPage from "./components/CheckoutPage";
+import ProfileView from "./components/ProfileView";
+import InventorySearch from "./components/InventorySearch";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,28 +22,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RecordList />,
+        element: <RegisterForm/>,
       },
-    ],
-  },
-  {
-    path: "/edit/:id",
-    element: <App />,
-    children: [
       {
-        path: "/edit/:id",
-        element: <Record />,
+        path: "/login",
+        element: <LoginForm/>,
       },
-    ],
-  },
-  {
-    path: "/create",
-    element: <App />,
-    children: [
+      {
+        path: "/register",
+        element: <RegisterForm/>,
+      },
+      {
+        path: "/homepage",
+        element: <LandingPage/>,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage/>,
+      },
+      {
+        path: "/profile",
+        element: <ProfileView/>,
+      },
+      {
+        path: "/inventory",
+        element: <InventorySearch/>,
+      },
       {
         path: "/create",
-        element: <Record />,
-      },
+        element: <ItemForm/>,
+      }
     ],
   },
 ]);
