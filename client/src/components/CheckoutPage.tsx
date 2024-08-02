@@ -8,9 +8,15 @@ function CheckoutPage() {
   const [selectedTime, setSelectedTime] = useState('');
   const [value, onChange] = useState<Value>(new Date());
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (event) => {
+    event.preventDefault();
     alert(`Checkout request sent for ${selectedTime}`);
-    // You can replace the alert with your actual logic, e.g., sending a request to a server
+    const serializedBody = JSON.stringify(selectedTime);
+    const fetchOptions = {
+        method: 'POST',
+        body: serializedBody
+    };
+    fetch("http://localhost:5050/checkout", fetchOptions);
   };
 
   const handleTimeChange = (event) => {
