@@ -202,6 +202,33 @@ const updateEvent = async (item, changes) => {
     return result;
 }
 
+const removeEvent = async (item) => {
+    let collection = await db.collection("events");
+    let filter = {
+        _id: item._id
+    };
+    let result = await collection.deleteOne(filter);
+    return result;
+}
+
+const removeItem = async (item) => {
+    let collection = await db.collection("items");
+    let filter = {
+        _id: item._id
+    };
+    let result = await collection.deleteOne(filter);
+    return result;
+}
+
+const removeUser = async (item) => {
+    let collection = await db.collection("users");
+    let filter = {
+        _id: item._id
+    };
+    let result = await collection.deleteOne(filter);
+    return result;
+}
+
 const initializeTestDatabase = async () => {
     try {
         if (process.env.NODE_ENV != "test") {
@@ -284,5 +311,6 @@ export default {
     numItems,     numUsers,     numEvents,
     addOneItem,   addOneUser,   addOneEvent,
     updateItem,   updateUser,   updateEvent,
+    removeItem,   removeUser,   removeEvent,
     initializeTestDatabase, tearDownTestDatabase
 };

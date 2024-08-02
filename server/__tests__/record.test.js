@@ -319,6 +319,14 @@ describe("Remove functions", () => {
 
     describe("Remove events", () => {
 
+        test("Remove Ryan event; he never showed up to discussion", async() => {
+            let event = await records.findOneEvent({
+                name: "Ryan Finally Attends Discussion"
+            });
+            let result = await records.removeEvent(event);
+            expect(result.acknowledged).toBe(true);
+        });
+
     });
 
 });
