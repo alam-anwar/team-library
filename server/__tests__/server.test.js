@@ -49,7 +49,7 @@ describe('Removing item from database', () => {
 // import app from '../server.js'; <--- Start of server.test.js file
 
 describe('Login/Register Validation', () => {
-    test('Invalid username should return error', async () => {
+    test.only('Invalid username should return error', async () => {
         const response = await request(app).post('/register').send({
             username: 'user@invalid',
             email: 'user@example.com',
