@@ -23,8 +23,44 @@ export default function Item() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    navigateToHome();
-    console.log(form);
+    //const item = { ...form }; //UNCOMMENT ONCE NEW API ENDPOINTS ARE ESTABLISHED
+    
+    //DELETE ONCE NEW API ENDPOINTS ARE ESTABLISHED
+    const item = {
+      name: form.name,
+      position: form.type,
+      level: "item"
+    }
+
+    try {
+      let response;
+
+      //Posting new record
+      response = await fetch("http://localhost:5050/record", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('A problem occurred with your fetch operation: ', error);
+    } finally {
+      setForm({
+        name: "",
+        location: "",
+        description: "",
+        genre: "",
+        copyNum: 0,
+        versions: "",
+        type: ""
+      });
+      navigateToHome();
+    }
   }
 
   const navigateToHome = () => {
