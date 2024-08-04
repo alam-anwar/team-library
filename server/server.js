@@ -16,6 +16,12 @@ app.get('/', (req, res) => {
     res.send(records.findAll()).status(200);
 });
 
+app.post('/checkout', (req, res) => {
+    const formData = req.body;
+    console.log(formData);
+    res.sendStatus(201);
+});
+
 // todo: fix
 app.post('/register', (req, res) => {
     res.status(400).send({
