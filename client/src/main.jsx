@@ -25,7 +25,7 @@ import DeleteAccount from "./components/DeleteAccount";
 import AdminNavbar from "./components/AdminNavBar";
 import AdminCalendar from "./components/AdminCalendar";
 import ModifyInventory from "./components/EditInventory";
-import Item from "./components/ItemForm";
+import ItemForm from "./components/ItemForm";
 import UpdateEvent from "./components/UpdateEvent";
 
 const router = createBrowserRouter([
@@ -35,7 +35,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RegisterForm />,
+        element: (
+          <>
+            <AdminNavbar />
+            <ModifyInventory />
+          </>
+        )
       },
       {
         path: "/login",
@@ -63,7 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <Item />,
+        element: <ItemForm />,
       },
       {
         path: "/member/checkedout",
@@ -138,11 +143,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/updateitem",
+        path: "/updateitem/:id",
         element: (
           <>
             <AdminNavbar />
-            <Item/>
+            <ItemForm/>
           </>
         ),
       },

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-calendar/dist/Calendar.css';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import Item from "./ItemForm";
-
-
+import ItemForm from "./ItemForm";
+import ItemList from "./InventoryEditList"
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -12,13 +11,12 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function EditInventory() {
   const [activeTab, setActiveTab] = useState('view');
-  
 
   const renderContent = () => {
     if (activeTab === 'view') {
       return <ViewInventory />;
     } else if (activeTab === 'add') {
-      return <Item />;
+      return <ItemForm />;
     }
   };
 
@@ -159,17 +157,9 @@ function ViewInventory() {
         </select>
       )}
 
-      {/* example search result is below */}
-      <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <p>Book: The Great Gatsby</p>
-          <p>Quantity Available: 5</p>
-          <p>Descripton: Some placeholder description</p>
-        </div>
-        <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/updateitem">
-          Modify
-        </NavLink>
-      </div>
+      {/* List of all items from InventoryEditList */}      
+      {ItemList()}
+
     </div>
   );
 }

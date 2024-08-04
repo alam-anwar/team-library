@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function Item() {
+export default function ItemForm() {
   const [form, setForm] = useState({
     name: "",
     location: "",
@@ -11,7 +11,34 @@ export default function Item() {
     versions: "",
     type: ""
   });
+  const [isNew, setIsNew] = useState(true);
+  const params = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchData() {
+      const id = params.id?.toString() || undefined;
+      if(!id) return;
+      setIsNew(false);
+      const response = await fetch(
+        `http://localhost:5050/record/${params.id.toString()}`
+      );
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        console.error(message);
+        return;
+      }
+      const item = await response.json();
+      if (!item) {
+        console.warn(`Record with id ${id} not found`);
+        navigate("/");
+        return;
+      }
+      setForm(item);
+    }
+    fetchData();
+    return;
+  }, [params.id, navigate]);
 
   // These methods will update the state properties.
   function updateForm(value) {
@@ -36,13 +63,24 @@ export default function Item() {
       let response;
 
       //Posting new record
-      response = await fetch("http://localhost:5050/record", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(item),
-      });
+      if (isNew) {
+        response = await fetch("http://localhost:5050/record", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        });
+      } else {
+        // if we are updating a record we will PATCH to /record/:id.
+        response = await fetch(`http://localhost:5050/record/${params.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(person),
+        });
+      }
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -149,27 +187,27 @@ export default function Item() {
               id="typeBook"
               name="typeOptions"
               type="radio"
-              value="book"
+              value="Book"
               className="mr-1"
-              checked={form.type === "book"}
+              checked={form.type === "Book"}
               onChange={(e) => updateForm({ type: e.target.value })}
             /> Book</label>
             <label><input
               id="typeDvd"
               name="typeOptions"
               type="radio"
-              value="dvd"
+              value="DVD"
               className="mr-1"
-              checked={form.type === "dvd"}
+              checked={form.type === "DVD"}
               onChange={(e) => updateForm({ type: e.target.value })}
             /> DVD</label>
             <label><input
               id="typeCd"
               name="typeOptions"
               type="radio"
-              value="cd"
+              value="CD"
               className="mr-1"
-              checked={form.type === "cd"}
+              checked={form.type === "CD"}
               onChange={(e) => updateForm({ type: e.target.value })}
             /> CD</label>
           </div>

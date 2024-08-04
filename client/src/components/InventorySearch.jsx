@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 
+const Item = (props) => {
+  <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div>
+      <p>Book: The Great Gatsby</p>
+      <p>Quantity Available: 5</p>
+    </div>
+    <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/checkout">
+      Checkout
+    </NavLink>
+  </div>
+}
+
 const InventorySearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -27,7 +39,7 @@ const InventorySearch = () => {
       <h1 style={{ fontSize: '2em' }}>Inventory Search</h1>
       <input
         type="text"
-        placeholder="  Search..."
+        placeholder="Search..."
         value={searchTerm}
         onChange={handleSearch}
         style={{ width: '800px', border: '2px solid' }}
