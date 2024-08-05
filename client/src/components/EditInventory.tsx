@@ -134,7 +134,7 @@ function ViewInventory() {
       <h1 style={{ fontSize: '2em' }}>Modify Inventory</h1>
       <input
         type="text"
-        placeholder="  Search..."
+        placeholder="Search..."
         value={searchTerm}
         onChange={handleSearch}
         style={{ width: '800px', border: '2px solid' }}

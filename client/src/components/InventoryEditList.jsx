@@ -6,7 +6,7 @@ const Item = (props) => (
     <td>
       <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
         <div>
-          <p>{props.item.position}: {props.item.name}</p>
+          <p>{props.item.type}: {props.item.name}</p>
           <p>Quantity Available: 5</p>
           <p>Descripton: Some placeholder description</p>
         </div>
