@@ -21,20 +21,13 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //const newUser = { ...form }; //UNCOMMENT ONCE NEW API ENDPOINTS ARE ESTABLISHED
-    
-    //DELETE ONCE NEW API ENDPOINTS ARE ESTABLISHED
-    const newUser = {
-      name: form.username,
-      position: form.password,
-      level: "member"
-    }
+    const newUser = { ...form };
 
     try {
       let response;
 
       //Posting new record
-      response = await fetch("http://localhost:5050/record", {
+      response = await fetch("http://localhost:5050/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

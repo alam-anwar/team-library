@@ -30,7 +30,6 @@ router.get("/:id", async (req, res) => {
 
 // Creates an item in the database.
 router.post("/", async (req, res) => {
-    console.log("Here?");
     try {
         let newDocument = {
             name: req.body.name,

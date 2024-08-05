@@ -2,12 +2,14 @@ import express from "express";
 import cors from "cors";
 import records from "./routes/record.js";
 import items from "./routes/item.js";
+import users from "./routes/user.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/item", items.router);
+app.use("/user", users.router);
 app.use("/record", records.router);
 
 // we still need to test the findAll() function,
