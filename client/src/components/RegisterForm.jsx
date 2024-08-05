@@ -22,6 +22,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = { ...form };
+    newUser.permissions = "member";
 
     try {
       let response;

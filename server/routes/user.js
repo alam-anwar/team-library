@@ -42,6 +42,7 @@ router.post("/", async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
             phone_number: req.body.phone_number,
+            permissions: req.body.permissions,
         };
         let collection = await db.collection("users");
         let result = await collection.insertOne(newDocument);
@@ -62,6 +63,7 @@ router.patch("/:id", async (req, res) => {
                 email: req.body.email,
                 password: req.body.password,
                 phone_number: req.body.phone_number,
+                permissions: req.body.permissions,
             },
         };
 
