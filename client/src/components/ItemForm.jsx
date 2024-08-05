@@ -73,7 +73,7 @@ export default function ItemForm() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(person),
+          body: JSON.stringify(item),
         });
       }
 
