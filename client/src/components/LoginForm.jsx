@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   return (
-    <form>
+    <>
       <h3 className="text-lg font-semibold p-4">Login</h3>
       <form onSubmit={handleSubmit} className="border rounded-lg overflow-hidden p-4 w-1/2 mx-auto">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-12">
@@ -46,6 +46,6 @@ export default function Login() {
           </button>
         </div>
       </form>
-    </form>
+    </>
   );
 }

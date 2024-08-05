@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -16,10 +16,35 @@ export default function Register() {
       [e.target.name]: e.target.value,
     });
   };
+  const isNew = useParams().id == undefined;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const newUser = { ...form };
+    newUser.permissions = "member";
+
+    try {
+      let response;
+
+      //Posting new record
+      response = await fetch("http://localhost:5050/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('A problem occurred with your fetch operation: ', error);
+    } finally {
+      setForm({ username: "", email: "", password: "", phone_number: ""});
+      navigate("/profile");
+    }
   };
 
   const navigateToLogin = () => {

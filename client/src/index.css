@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-group {
+    padding: 0.5em;
+    will-change: filter;
+    transition: filter 300ms;
+    align-items: center;
+    display: flex;
+}
+label {
+    width: 40%;
+    margin-bottom: 0;
+    text-align: right;
+    padding-right: 14px;
+    font-weight: 500;
+}
+input[type="text"], input[type="number"], input[type="password"], textarea {
+    width: 55%;
+    padding: 8px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid rgb(156, 163, 175);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+textarea {
+    width: 55%;
+    padding: 8px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid rgb(156, 163, 175);;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
+    resize: none;
+}
+.radio-group {
+    display: flex;
+    justify-content: flex-start;
+    width: 30%;
+}
