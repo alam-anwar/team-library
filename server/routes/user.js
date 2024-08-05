@@ -11,6 +11,9 @@ import { ObjectId } from "mongodb";
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const router = express.Router();
 
+// Library for ahshing and comparing passwords
+import bcrypt from 'bcryptjs'
+
 // Find all users.
 router.get("/", async (req, res) => {
     let collection = await db.collection("users");
@@ -30,11 +33,14 @@ router.get("/:id", async (req, res) => {
 
 // Creates a user in the database.
 router.post("/", async (req, res) => {
+    //Hashes password before storing it
+    const hashedPassword = bcrypt.hashSync(req.body.password);
+
     try {
         let newDocument = {
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
             phone_number: req.body.phone_number,
         };
         let collection = await db.collection("users");
