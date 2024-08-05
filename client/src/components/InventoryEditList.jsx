@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Item = (props) => (
-    <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+  <tr>
+    <td>
+      <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
         <div>
           <p>{props.item.position}: {props.item.name}</p>
           <p>Quantity Available: 5</p>
@@ -24,6 +26,8 @@ const Item = (props) => (
           Delete
         </button>
       </div>
+    </td>
+  </tr>
 );
 
 export default function ItemList() {
@@ -32,7 +36,7 @@ export default function ItemList() {
   // This method fetches the items from the database.
   useEffect(() => {
     async function getItems() {
-      const response = await fetch(`http://localhost:5050/record/`);
+      const response = await fetch(`http://localhost:5050/item/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -47,7 +51,7 @@ export default function ItemList() {
 
   // This method will delete a item
   async function deleteItem(id) {
-    await fetch(`http://localhost:5050/record/${id}`, {
+    await fetch(`http://localhost:5050/item/${id}`, {
       method: "DELETE",
     });
     const newItems = items.filter((el) => el._id !== id);
@@ -69,8 +73,10 @@ export default function ItemList() {
 
   // This following section will display the table with the items of individuals.
   return (
-    <tbody className="[&amp;_tr:last-child]:border-0">
+    <table>
+      <tbody className="[&amp;_tr:last-child]:border-0">
         {itemList()}
-    </tbody>
+      </tbody>
+    </table>
   );
 }

@@ -21,7 +21,7 @@ export default function ItemForm() {
       if(!id) return;
       setIsNew(false);
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `http://localhost:5050/item/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -30,7 +30,7 @@ export default function ItemForm() {
       }
       const item = await response.json();
       if (!item) {
-        console.warn(`Record with id ${id} not found`);
+        console.warn(`Item with id ${id} not found`);
         navigate("/");
         return;
       }
@@ -50,30 +50,25 @@ export default function ItemForm() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    //const item = { ...form }; //UNCOMMENT ONCE NEW API ENDPOINTS ARE ESTABLISHED
-    
-    //DELETE ONCE NEW API ENDPOINTS ARE ESTABLISHED
-    const item = {
-      name: form.name,
-      position: form.type,
-      level: "item"
-    }
+    const item = { ...form };
 
     try {
       let response;
 
-      //Posting new record
+      //Posting new item
       if (isNew) {
-        response = await fetch("http://localhost:5050/record", {
+        response = await fetch("http://localhost:5050/item", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(item),
         });
+        console.log(form);
+        console.log(response);
       } else {
-        // if we are updating a record we will PATCH to /record/:id.
-        response = await fetch(`http://localhost:5050/record/${params.id}`, {
+        // if we are updating an item we will PATCH to /item/:id.
+        response = await fetch(`http://localhost:5050/item/${params.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -113,8 +108,8 @@ export default function ItemForm() {
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
       >
-        <div class="form-group">
-          <label for="name">Name</label>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             name="name"
@@ -124,8 +119,8 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ name: e.target.value })}
           />
         </div>
-        <div class="form-group">
-          <label for="location">Location</label>
+        <div className="form-group">
+          <label htmlFor="location">Location</label>
           <input
             type="text"
             name="location"
@@ -135,8 +130,8 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ location: e.target.value })}
           />
         </div>
-        <div class="form-group">
-          <label for="description">Description</label>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
           <textarea
             type="text"
             name="description"
@@ -147,8 +142,8 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ description: e.target.value })}
           />
         </div>
-        <div class="form-group">
-          <label for="genre">Genre</label>
+        <div className="form-group">
+          <label htmlFor="genre">Genre</label>
           <input
             type="text"
             name="genre"
@@ -158,8 +153,8 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ genre: e.target.value })}
           />
         </div>
-        <div class="form-group">
-          <label for="copyNum">Number of Copies</label>
+        <div className="form-group">
+          <label htmlFor="copyNum">Number of Copies</label>
           <input
             type="number"
             name="copyNum"
@@ -169,8 +164,8 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ copyNum: e.target.value })}
           />
         </div>
-        <div class="form-group">
-          <label for="versions">Versions</label>
+        <div className="form-group">
+          <label htmlFor="versions">Versions</label>
           <input
             type="text"
             name="versions"
@@ -180,9 +175,9 @@ export default function ItemForm() {
             onChange={(e) => updateForm({ versions: e.target.value })}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label>Type</label>
-          <div class="radio-group">
+          <div className="radio-group">
             <label><input
               id="typeBook"
               name="typeOptions"
