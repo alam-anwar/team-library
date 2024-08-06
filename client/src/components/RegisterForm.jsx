@@ -65,6 +65,7 @@ export default function Register() {
               id="username"
               value={form.username}
               onChange={updateForm}
+              required
             />
           </div>
           <div class="form-group">
@@ -75,6 +76,7 @@ export default function Register() {
               id="email"
               value={form.email}
               onChange={updateForm}
+              required
             />
           </div>
           <div class="form-group">
@@ -95,6 +97,7 @@ export default function Register() {
               id="password"
               value={form.password}
               onChange={updateForm}
+              required
             />
           </div>
 

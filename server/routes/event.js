@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
     else res.send(result).status(200);
 });
 
-// Creates a event in the database.
+// Creates an event in the database.
 router.post("/", async (req, res) => {
     try {
         let newDocument = {
@@ -36,6 +36,10 @@ router.post("/", async (req, res) => {
             description: req.body.description,
             imageLink: req.body.imageLink,
             date: req.body.date,
+            startTime: req.body.startTime,
+            endTime: req.body.endTime,
+            location: req.body.location,
+            approved: req.body.approved,
         };
         let collection = await db.collection("events");
         let result = await collection.insertOne(newDocument);
@@ -51,12 +55,7 @@ router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
         const updates = {
-            $set: {
-                name: req.body.name,
-                description: req.body.description,
-                imageLink: req.body.imageLink,
-                date: req.body.date,
-            },
+            $set: req.body
         };
 
         let collection = await db.collection("events");

@@ -62,6 +62,7 @@ export default function CreateAccount() {
             placeholder="Enter username"
             value={form.username}
             onChange={(e) => updateForm({ username: e.target.value })}
+            required
           />
         </div>
         <div class="form-group">
@@ -73,6 +74,7 @@ export default function CreateAccount() {
             placeholder="Enter password"
             value={form.password}
             onChange={(e) => updateForm({ password: e.target.value })}
+            required
           />
         </div>
         <div class="form-group">
@@ -95,6 +97,7 @@ export default function CreateAccount() {
             placeholder="Enter email"
             value={form.email}
             onChange={(e) => updateForm({ email: e.target.value })}
+            required
           />
         </div>
         <div className="form-group">
@@ -108,6 +111,7 @@ export default function CreateAccount() {
               className="mr-1"
               checked={form.permissions === "member"}
               onChange={(e) => updateForm({ permissions: e.target.value })}
+              required
             /> Member</label>
             <label><input
               id="employee"

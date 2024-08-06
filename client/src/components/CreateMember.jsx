@@ -62,6 +62,7 @@ export default function CreateMember() {
             placeholder="Enter username"
             value={form.username}
             onChange={(e) => updateForm({ username: e.target.value })}
+            required
           />
         </div>
         <div class="form-group">
@@ -73,6 +74,7 @@ export default function CreateMember() {
             placeholder="Enter password"
             value={form.password}
             onChange={(e) => updateForm({ password: e.target.value })}
+            required
           />
         </div>
         <div class="form-group">
@@ -95,6 +97,7 @@ export default function CreateMember() {
             placeholder="Enter email"
             value={form.email}
             onChange={(e) => updateForm({ email: e.target.value })}
+            required
           />
         </div>
         <input

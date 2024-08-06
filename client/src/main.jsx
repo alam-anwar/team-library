@@ -27,6 +27,7 @@ import ModifyInventory from "./components/EditInventory";
 import ItemForm from "./components/ItemForm";
 import UpdateEvent from "./components/UpdateEvent";
 import AccountManager from "./components/AccountManager";
+import RsvpPage from "./components/RsvpPage";
 
 const router = createBrowserRouter([
   {
@@ -82,8 +83,18 @@ const router = createBrowserRouter([
         ),
         children : [
           {
-            path: "calendar",
-            element: <EventsPage />,
+            path: "calendar/*",
+            element: <App />,
+            children: [
+              {
+                path: "",
+                element: <EventsPage />,
+              },
+              {
+                path: "rsvp/:id",
+                element: <RsvpPage />,
+              },
+            ]
           },
           {
             path: "inventory",
@@ -125,7 +136,17 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <EmployeeCalendar />,
+            element: <App />,
+            children: [
+              {
+                path: "",
+                element: <EmployeeCalendar />,
+              },
+              {
+                path: "rsvp/:id",
+                element: <RsvpPage />,
+              },
+            ]
           },
           {
             path: "inventorymanager",
@@ -171,7 +192,17 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <AdminCalendar />,
+            element: <App />,
+            children : [
+              {
+                path: "",
+                element: <AdminCalendar />,
+              },
+              {
+                path: "updateevent/:id",
+                element: <UpdateEvent />,
+              }
+            ]
           },
           {
             path: "inventorymanager",
@@ -198,14 +229,6 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <ProfileView />,
-          },
-          {
-            path: "updateitem/:id",
-            element: <ItemForm />,
-          },
-          {
-            path: "updateevent",
-            element: <UpdateEvent />,
           },
         ]
       },     

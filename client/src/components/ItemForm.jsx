@@ -112,6 +112,7 @@ export default function ItemForm() {
             placeholder="Enter name"
             value={form.name}
             onChange={(e) => updateForm({ name: e.target.value })}
+            required
           />
         </div>
         <div className="form-group">
@@ -154,9 +155,10 @@ export default function ItemForm() {
             type="number"
             name="copyNum"
             id="copyNum"
-            placeholder="Enter copyNum"
+            placeholder="Enter number of copies"
             value={form.copyNum}
             onChange={(e) => updateForm({ copyNum: e.target.value })}
+            required
           />
         </div>
         <div className="form-group">
@@ -181,25 +183,26 @@ export default function ItemForm() {
               className="mr-1"
               checked={form.type === "Book"}
               onChange={(e) => updateForm({ type: e.target.value })}
+              required
             /> Book</label>
             <label><input
-              id="typeDvd"
+              id="typeMovie"
               name="typeOptions"
               type="radio"
-              value="DVD"
+              value="Movie"
               className="mr-1"
-              checked={form.type === "DVD"}
+              checked={form.type === "Movie"}
               onChange={(e) => updateForm({ type: e.target.value })}
-            /> DVD</label>
+            /> Movie</label>
             <label><input
-              id="typeCd"
+              id="typeAlbum"
               name="typeOptions"
               type="radio"
-              value="CD"
+              value="Album"
               className="mr-1"
-              checked={form.type === "CD"}
+              checked={form.type === "Album"}
               onChange={(e) => updateForm({ type: e.target.value })}
-            /> CD</label>
+            /> Album</label>
           </div>
         </div>
         <input
