@@ -5,6 +5,8 @@ import records from "./routes/record.js";
 import items from "./routes/item.js";
 import users from "./routes/user.js";
 import events from "./routes/event.js";
+import findOneUser from './routes/record.js';
+import bcrypt from 'bcryptjs';
 
 
 const app = express();
@@ -18,11 +20,11 @@ app.use("/user", users.router);
 app.use("/event", events.router);
 app.use("/record", records.router);
 
-// Middleware to protect routes
+/*/ Middleware to protect routes
 const authenticateUser = async (req, res, next) => {
     const { username, password } = req.body;
     try {
-        const user = await users.findOneUser({ username });
+        const user = await findOneUser({ username });
         if (!user) return res.status(401).send("User not found");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -34,20 +36,21 @@ const authenticateUser = async (req, res, next) => {
         res.status(500).send("Error during authentication");
     }
 };
+*/
 
 // User login and authentication
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await users.findOneUser(username);
-        console.log(user);
+        const user = await records.findOneUser({username});
         if (!user) return res.status(401).send("User not found");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) return res.status(401).send("Invalid password");
         
-        res.status(200).json({ message: "Login successful", user });
+        res.status(200).json({ loginSuccess: true, user });
     } catch (err) {
+        console.log(err);
         res.status(500).send("Error during login");
     }
 });

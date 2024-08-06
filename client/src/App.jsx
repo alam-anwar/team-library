@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom"
+import { UserProvider } from './UserContext'; // Adjust the path as necessary
 import './App.css'
 
 const App = () => {
     return (
-        <div className="w-full p-6">
-            <Outlet />
-        </div>
+        <UserProvider>
+            <div className="w-full p-6">
+                <Outlet />
+            </div>
+        </UserProvider>
     )
 }
 

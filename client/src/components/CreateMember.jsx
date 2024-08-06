@@ -53,7 +53,7 @@ export default function CreateMember() {
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
       >
-        <div class="form-group">
+        <div className="form-group">
           <label for="username">Username</label>
           <input
             type="text"
@@ -65,7 +65,7 @@ export default function CreateMember() {
             required
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label for="password">Password</label>
           <input
             type="password"
@@ -77,7 +77,7 @@ export default function CreateMember() {
             required
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label for="phone">Phone Number</label>
           <input
             type="text"
@@ -88,7 +88,7 @@ export default function CreateMember() {
             onChange={(e) => updateForm({ phone_number: e.target.value })}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label for="email">Email</label>
           <input
             type="text"

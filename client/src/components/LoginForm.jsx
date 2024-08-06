@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 export default function Login() {
   const [form, setForm] = useState({
     username: '',
     password: '',
   });
-  const [message, setMessage] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginSuccess, setLoginSuccess] = useState('');
   const navigate = useNavigate();
+  const {user, setUser} = useContext(UserContext);
 
   const updateForm = (e) => {
     setForm({
@@ -22,25 +23,31 @@ export default function Login() {
   const comparePassword = async () => {
     try {
       const res = await axios.post('http://localhost:5050/login', { ...form });
-      setMessage(res.data.msg);
+
+      setLoginSuccess(res.data.loginSuccess);
+      setUser(res.data.user);
     } catch (err) {
-      setMessage('Error');
+      setLoginSuccess(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //Get username and password
-    console.log(form);
 
-    //Pass password to backend and hash
+    //Pass password to backend and hash, if 
     comparePassword();
 
-    //If passwords match, store username as global context (set up in app.jsx)
-    console.log(message);
-    //if (message.equals('Password matches')) {
-      //console.log("Password Matches!!!")
-    //}
+    //If passwords match, store user id as global context (set up in app.jsx)
+    if (loginSuccess) {
+      const permissions = user.permissions;
+      if (permissions === 'member') {
+        navigate("/member/profile");
+      } else if (permissions === 'employee') {
+        navigate("/employee/profile");
+      } else if (permissions === 'admin') {
+        navigate("/admin/profile");
+      }
+    }
 
     //Get permissions and use to see where to navigate to and navigate there
 

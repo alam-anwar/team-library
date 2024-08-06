@@ -27,7 +27,7 @@ export default function ProfileView() {
       <h3 className="text-lg font-semibold p-4">Your profile</h3>
       <form onSubmit={handleSubmit} className="border rounded-lg overflow-hidden p-4 w-1/2 mx-auto">
         <div className="pb-10">
-          <div class="form-group">
+          <div className="form-group">
             <label for="username">Username</label>
             <input
               type="text"
@@ -37,7 +37,7 @@ export default function ProfileView() {
               onChange={(e) => updateForm({ username: e.target.value })}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="password">Password</label>
             <input
               type="password"
@@ -47,7 +47,7 @@ export default function ProfileView() {
               onChange={(e) => updateForm({ password: e.target.value })}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="phone">Phone Number</label>
             <input
               type="text"
@@ -57,7 +57,7 @@ export default function ProfileView() {
               onChange={(e) => updateForm({ phone_number: e.target.value })}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="email">Email</label>
             <input
               type="text"

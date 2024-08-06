@@ -57,7 +57,7 @@ export default function Register() {
       <h3 className="text-lg font-semibold p-4">Register</h3>
       <form onSubmit={handleSubmit} className="border rounded-lg overflow-hidden p-4 w-1/2 mx-auto">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-12">
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -68,7 +68,7 @@ export default function Register() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
               type="text"
@@ -79,7 +79,7 @@ export default function Register() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="phone_number">Phone Number</label>
             <input
               type="text"
@@ -89,7 +89,7 @@ export default function Register() {
               onChange={updateForm}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
               type="password"
