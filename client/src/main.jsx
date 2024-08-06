@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <CheckoutPage />,
+            element: <LoginForm />,
           },
           {
             path: "/inventory",
@@ -145,7 +145,7 @@ const router = createBrowserRouter([
             element: <ProcessReturns />,
           },
           {
-            path: "accountmanager",
+            path: "newmember",
             element: <CreateMember />,
           },
           {

@@ -57,21 +57,45 @@ export default function Register() {
       <h3 className="text-lg font-semibold p-4">Register</h3>
       <form onSubmit={handleSubmit} className="border rounded-lg overflow-hidden p-4 w-1/2 mx-auto">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-12">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium leading-6 text-slate-900">Username</label>
-            <input type="text" name="username" id="username" value={form.username} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+          <div class="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={form.username}
+              onChange={updateForm}
+            />
           </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-slate-900">Email</label>
-            <input type="text" name="email" id="email" value={form.email} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+          <div class="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value={form.email}
+              onChange={updateForm}
+            />
           </div>
-          <div>
-            <label htmlFor="phone_number" className="block text-sm font-medium leading-6 text-slate-900">Phone Number</label>
-            <input type="text" name="phone_number" id="phone_number" value={form.phone_number} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+          <div class="form-group">
+            <label htmlFor="phone_number">Phone Number</label>
+            <input
+              type="text"
+              name="phone_number"
+              id="phone_number"
+              value={form.phone_number}
+              onChange={updateForm}
+            />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium leading-6 text-slate-900">Password</label>
-            <input type="password" name="password" id="password" value={form.password} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+          <div class="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={form.password}
+              onChange={updateForm}
+            />
           </div>
 
         </div>

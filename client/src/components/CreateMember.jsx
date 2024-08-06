@@ -20,8 +20,29 @@ export default function CreateMember() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    navigateToHome();
-    console.log(form);
+    const newUser = { ...form };
+    newUser.permissions = "member";
+
+    try {
+      let response;
+
+      //Posting new record
+      response = fetch("http://localhost:5050/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('A problem occurred with your fetch operation: ', error);
+    } finally {
+      setForm({ username: "", email: "", password: "", phone_number: ""});
+    }
   }
 
   const navigateToHome = () => {
@@ -62,12 +83,12 @@ export default function CreateMember() {
           <label for="phone">Phone Number</label>
           <input
             type="text"
-            name="phone"
-            id="phone"
+            name="phone_number"
+            id="phone_number"
             placeholder="Enter phone number"
             rows="4"
-            value={form.phone}
-            onChange={(e) => updateForm({ phone: e.target.value })}
+            value={form.phone_number}
+            onChange={(e) => updateForm({ phone_number: e.target.value })}
           />
         </div>
         <div class="form-group">
@@ -83,7 +104,7 @@ export default function CreateMember() {
         </div>
         <input
           type="submit"
-          value="Save Item"
+          value="Add New Member"
           className="inline-flex items-center justify-center font-medium border h-9 rounded-md px-3 cursor-pointer mt-4 border-gray-400"
         />
       </form>
