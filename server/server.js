@@ -5,9 +5,6 @@ import records from "./routes/record.js";
 import items from "./routes/item.js";
 import users from "./routes/user.js";
 import events from "./routes/event.js";
-import findOneUser from './routes/record.js';
-import bcrypt from 'bcryptjs';
-
 
 const app = express();
 
@@ -20,52 +17,16 @@ app.use("/user", users.router);
 app.use("/event", events.router);
 app.use("/record", records.router);
 
-/*/ Middleware to protect routes
-const authenticateUser = async (req, res, next) => {
-    const { username, password } = req.body;
-    try {
-        const user = await findOneUser({ username });
-        if (!user) return res.status(401).send("User not found");
+// New routes matching main.jsx paths
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return res.status(401).send("Invalid password");
-
-        req.user = user; // Attach user to request object
-        next();
-    } catch (err) {
-        res.status(500).send("Error during authentication");
-    }
-};
-*/
-
-// User login and authentication
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await records.findOneUser({username});
-        if (!user) return res.status(401).send("User not found");
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return res.status(401).send("Invalid password");
-        
-        res.status(200).json({ loginSuccess: true, user });
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Error during login");
-    }
+// Handle user login (Assuming frontend handles actual auth)
+app.post('/login', (req, res) => {
+    res.status(200).send("Login handled on the frontend");
 });
 
-// Register new user
-app.post('/register', async (req, res) => {
-    try {
-        const { username, password, name, email, permission } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = { username, password: hashedPassword, name, email, permission };
-        const result = await users.addOneUser(newUser);
-        res.status(201).send(result);
-    } catch (err) {
-        res.status(500).send("Error during registration");
-    }
+// Handle user registration (Assuming frontend handles actual auth)
+app.post('/register', (req, res) => {
+    res.status(200).send("Registration handled on the frontend");
 });
 
 // Homepage: Return all items and events
@@ -129,6 +90,37 @@ app.post('/checkout', async (req, res) => {
     } catch (err) {
         console.error("Error during checkout:", err);
         res.status(500).send("Error during checkout");
+    }
+});
+
+// Checkout Processing
+app.post('/checkoutprocessing', async (req, res) => {
+    try {
+        const { userId, itemIds } = req.body;
+        const user = await records.findOneUser({ _id: new ObjectId(userId) });
+
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        const items = await Promise.all(itemIds.map(itemId => records.findOneItem({ _id: new ObjectId(itemId) })));
+
+        if (items.some(item => !item)) {
+            return res.status(404).send("One or more items not found");
+        }
+
+        user.checked_out.push(...itemIds);
+        await records.updateUser({ _id: new ObjectId(userId) }, { $set: user });
+
+        for (const item of items) {
+            item.copyNum -= 1;
+            item.check_out_history.push(userId);
+            await records.updateItem({ _id: new ObjectId(item._id) }, { $set: item });
+        }
+
+        res.status(200).send("Checkout processing successful");
+    } catch (err) {
+        res.status(500).send("Error during checkout processing");
     }
 });
 
@@ -294,28 +286,25 @@ app.get('/updateevent', async (req, res) => {
     }
 });
 
-/************************** USER AUTHENTIFICATION **************************
-router.post('/compare-password', async (req, res) => {
-    const { username, password } = req.body;
-  
+//RSVP to an Event
+app.post('/rsvp', async (req, res) => {
     try {
-      const currUser = await user.findOne({ username });
-      if (!currUser) {
-        return res.status(400).json({ msg: 'User not found' });
-      }
-  
-      const isMatch = await bcrypt.compare(password, currUser.password);
-      if (isMatch) {
-        return res.status(200).json({ msg: 'Password matches' });
-      } else {
-        return res.status(400).json({ msg: 'Password does not match' });
-      }
+        const { userId, eventId } = req.body;
+        const user = await records.findOneUser({ _id: new ObjectId(userId) });
+        const event = await records.findOneEvent({ _id: new ObjectId(eventId) });
+
+        if (!user || !event) {
+            return res.status(404).send("User or Event not found");
+        }
+
+        event.attendees.push(userId);
+        await records.updateEvent({ _id: new ObjectId(eventId) }, { $set: event });
+
+        res.status(200).send("RSVP successful");
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
+        res.status(500).send("Error during RSVP");
     }
 });
-/************************** USER AUTHENTIFICATION **************************/
 
 // Start the Express server
 const PORT = process.env.PORT || 5050;
