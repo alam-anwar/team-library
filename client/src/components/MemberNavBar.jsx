@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
 export default function MemberNavbar() {
-  const [user, setUser] = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   const logout = async(e) => {
     setUser(null);
@@ -30,11 +30,11 @@ export default function MemberNavbar() {
             Due/RSVP Dates (?)
           </NavLink>
           <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2" to="/member/profile">
-            View Profile
+            Edit Profile
           </NavLink>
-          <button onClick={logout()} className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/">
+          <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to ='/'>
             Logout
-          </button>
+          </NavLink>
         </div>
       </nav>
     </div>
