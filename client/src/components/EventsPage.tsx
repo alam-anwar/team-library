@@ -9,7 +9,6 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 function EventsPage() {
   const [value, onChange] = useState<Value>(new Date());
 
-
   return (
     <>
       <style>
