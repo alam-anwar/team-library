@@ -6,6 +6,7 @@ import items from "./routes/item.js";
 import users from "./routes/user.js";
 import events from "./routes/event.js";
 
+
 const app = express();
 
 app.use(cors());
@@ -38,12 +39,13 @@ const authenticateUser = async (req, res, next) => {
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await users.findOneUser({ username });
+        const user = await users.findOneUser(username);
+        console.log(user);
         if (!user) return res.status(401).send("User not found");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) return res.status(401).send("Invalid password");
-
+        
         res.status(200).json({ message: "Login successful", user });
     } catch (err) {
         res.status(500).send("Error during login");
@@ -208,6 +210,29 @@ app.get('/updateevent', async (req, res) => {
         res.status(500).send("Error fetching event");
     }
 });
+
+/************************** USER AUTHENTIFICATION **************************
+router.post('/compare-password', async (req, res) => {
+    const { username, password } = req.body;
+  
+    try {
+      const currUser = await user.findOne({ username });
+      if (!currUser) {
+        return res.status(400).json({ msg: 'User not found' });
+      }
+  
+      const isMatch = await bcrypt.compare(password, currUser.password);
+      if (isMatch) {
+        return res.status(200).json({ msg: 'Password matches' });
+      } else {
+        return res.status(400).json({ msg: 'Password does not match' });
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+});
+/************************** USER AUTHENTIFICATION **************************/
 
 // Start the Express server
 const PORT = process.env.PORT || 5050;

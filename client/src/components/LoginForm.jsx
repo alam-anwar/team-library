@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
   const [form, setForm] = useState({
     username: '',
     password: '',
   });
+  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const updateForm = (e) => {
@@ -15,9 +19,31 @@ export default function Login() {
     });
   };
 
+  const comparePassword = async () => {
+    try {
+      const res = await axios.post('http://localhost:5050/login', { ...form });
+      setMessage(res.data.msg);
+    } catch (err) {
+      setMessage('Error');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //Get username and password
     console.log(form);
+
+    //Pass password to backend and hash
+    comparePassword();
+
+    //If passwords match, store username as global context (set up in app.jsx)
+    console.log(message);
+    //if (message.equals('Password matches')) {
+      //console.log("Password Matches!!!")
+    //}
+
+    //Get permissions and use to see where to navigate to and navigate there
+
   };
 
   const navigateToRegister = () => {
@@ -30,8 +56,8 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="border rounded-lg overflow-hidden p-4 w-1/2 mx-auto">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-12">
           <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email" id="email" value={form.email} onChange={updateForm} />
+            <label htmlFor="username">Username</label>
+            <input type="text" name="username" id="username" value={form.username} onChange={updateForm} />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
