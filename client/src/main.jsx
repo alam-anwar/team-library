@@ -44,28 +44,28 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <InventorySearch />
+            element: <CheckoutPage />,
           },
           {
             path: "/inventory",
-            element: <InventorySearch />
+            element: <InventorySearch />,
           },
           {
             path: "/calendar",
-            element: <EventsPage />
+            element: <EventsPage />,
           },
           {
             path: "/login",
-            element: <LoginForm />
+            element: <LoginForm />,
           },
           {
             path: "/register",
-            element: <RegisterForm />
+            element: <RegisterForm />,
           },
           {
             //Will fix this
             path: "/homepage",
-            element: <LandingPage />
+            element: <LandingPage />,
           },
           
         ]
@@ -82,23 +82,33 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <EventsPage />
+            element: <EventsPage />,
           },
           {
             path: "inventory",
-            element: <InventorySearch />
+            element: <App />,
+            children: [
+              {
+                path: "",
+                element: <InventorySearch />,
+              },
+              {
+                path: "checkout/:id",
+                element: <CheckoutPage />
+              },
+            ]
           },
           {
             path: "checkedout",
-            element: <CheckedOut />
+            element: <CheckedOut />,
           },
           {
             path: "profile",
-            element: <ProfileView />
+            element: <ProfileView />,
           },
           {
             path: "checkout",
-            element: <CheckoutPage />
+            element: <CheckoutPage />,
           },
         ]
       },
@@ -114,7 +124,7 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <EmployeeCalendar />
+            element: <EmployeeCalendar />,
           },
           {
             path: "modifyinventory",
@@ -122,29 +132,29 @@ const router = createBrowserRouter([
             children : [
               {
                 path: "",
-                element: <ModifyInventory />
+                element: <ModifyInventory />,
               },
               {
                 path: "updateItem/:id",
-                element: <ItemForm />
+                element: <ItemForm />,
               },
             ]
           },
           {
             path: "processreturns",
-            element: <ProcessReturns />
+            element: <ProcessReturns />,
           },
           {
             path: "accountmanager",
-            element: <CreateMember />
+            element: <CreateMember />,
           },
           {
             path: "profile",
-            element: <ProfileView />
+            element: <ProfileView />,
           },
           {
             path: "checkout",
-            element: <CheckoutPage />
+            element: <CheckoutPage />,
           },
         ]
       },
@@ -160,31 +170,31 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <AdminCalendar />
+            element: <AdminCalendar />,
           },
           {
             path: "modifyinventory",
-            element: <ModifyInventory />
+            element: <ModifyInventory />,
           },
           {
             path: "processreturns",
-            element: <ProcessReturns />
+            element: <ProcessReturns />,
           },
           {
             path: "accountmanager",
-            element: <CreateMember />
+            element: <CreateMember />,
           },
           {
             path: "profile",
-            element: <ProfileView />
+            element: <ProfileView />,
           },
           {
             path: "updateitem/:id",
-            element: <ItemForm />
+            element: <ItemForm />,
           },
           {
             path: "updateevent",
-            element: <UpdateEvent />
+            element: <UpdateEvent />,
           },
         ]
       },     
