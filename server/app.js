@@ -1,9 +1,13 @@
-import express from "express"
+import { UserProvider } from './context/UserContext'; // Adjust the path as necessary
 
-const app = express()
+const App = () => {
+  return (
+    <UserProvider>
+      <div className="w-full p-6">
+        <Outlet />
+      </div>
+    </UserProvider>
+  );
+}
 
-app.post('/test', (req, res) => {
-    res.send("Hello!")
-})
-
-export default app
+export default App;
