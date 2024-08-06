@@ -5,6 +5,7 @@ import records from "./routes/record.js";
 import items from "./routes/item.js";
 import users from "./routes/user.js";
 import events from "./routes/event.js";
+import bcrypt from "bcryptjs"
 
 const app = express();
 
@@ -19,9 +20,21 @@ app.use("/record", records.router);
 
 // New routes matching main.jsx paths
 
-// Handle user login (Assuming frontend handles actual auth)
-app.post('/login', (req, res) => {
-    res.status(200).send("Login handled on the frontend");
+// User login and authentication
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await records.findOneUser({username});
+        if (!user) return res.status(401).send("User not found");
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) return res.status(401).send("Invalid password");
+        
+        res.status(200).json({ loginSuccess: true, user });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Error during login");
+    }
 });
 
 // Handle user registration (Assuming frontend handles actual auth)

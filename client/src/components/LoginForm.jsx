@@ -37,6 +37,7 @@ export default function Login() {
     //Pass password to backend and hash, if 
     comparePassword();
 
+    console.log(loginSuccess);
     //If passwords match, store user id as global context (set up in app.jsx)
     if (loginSuccess) {
       const permissions = user.permissions;
