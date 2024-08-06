@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <div>
       <nav className="flex justify-between items-center mb-6">
-        <NavLink to="/">
+        <NavLink to="/inventory">
             <img alt="MongoDB logo" className="h-10 inline" src="https://uspto.report/TM/90366305/mark.png"></img>
         </NavLink>
 

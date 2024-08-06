@@ -7,12 +7,12 @@ const Item = (props) => (
       <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
         <div>
           <p>{props.item.type}: {props.item.name}</p>
-          <p>Quantity Available: 5</p>
-          <p>Descripton: Some placeholder description</p>
+          <p>Quantity Available: {props.item.copyNum}</p>
+          <p>Descripton: {props.item.description}</p>
         </div>
         <Link
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          to={`/updateItem/${props.item._id}`}
+          to={`./updateItem/${props.item._id}`}
         >
           Modify
         </Link>

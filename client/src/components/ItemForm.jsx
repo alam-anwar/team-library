@@ -97,7 +97,7 @@ export default function ItemForm() {
   }
 
   const navigateToHome = () => {
-    navigate("/modifyinventory");
+    navigate(-1);
   };
 
   // Input Form

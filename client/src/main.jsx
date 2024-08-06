@@ -7,8 +7,6 @@ import {
 import App from "./App";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
-import Record from "./components/Record";
-import RecordList from "./components/RecordList";
 import "./index.css";
 import LandingPage from "./components/LandingPage";
 import CheckoutPage from "./components/CheckoutPage";
@@ -116,11 +114,21 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <EventsPage />
+            element: <EmployeeCalendar />
           },
           {
             path: "modifyinventory",
-            element: <ModifyInventory />
+            element: <App />,
+            children : [
+              {
+                path: "",
+                element: <ModifyInventory />
+              },
+              {
+                path: "updateItem/:id",
+                element: <ItemForm />
+              },
+            ]
           },
           {
             path: "processreturns",
@@ -138,7 +146,6 @@ const router = createBrowserRouter([
             path: "checkout",
             element: <CheckoutPage />
           },
-          
         ]
       },
       /********************************ADMIN PAGES********************************/
@@ -153,7 +160,7 @@ const router = createBrowserRouter([
         children : [
           {
             path: "calendar",
-            element: <EventsPage />
+            element: <AdminCalendar />
           },
           {
             path: "modifyinventory",
