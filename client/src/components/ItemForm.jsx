@@ -92,13 +92,8 @@ export default function ItemForm() {
         versions: "",
         type: ""
       });
-      navigateToHome();
     }
   }
-
-  const navigateToHome = () => {
-    navigate(-1);
-  };
 
   // Input Form
   return (

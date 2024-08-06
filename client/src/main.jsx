@@ -26,6 +26,7 @@ import AdminCalendar from "./components/AdminCalendar";
 import ModifyInventory from "./components/EditInventory";
 import ItemForm from "./components/ItemForm";
 import UpdateEvent from "./components/UpdateEvent";
+import AccountManager from "./components/AccountManager";
 
 const router = createBrowserRouter([
   {
@@ -127,7 +128,7 @@ const router = createBrowserRouter([
             element: <EmployeeCalendar />,
           },
           {
-            path: "modifyinventory",
+            path: "inventorymanager",
             element: <App />,
             children : [
               {
@@ -173,8 +174,18 @@ const router = createBrowserRouter([
             element: <AdminCalendar />,
           },
           {
-            path: "modifyinventory",
-            element: <ModifyInventory />,
+            path: "inventorymanager",
+            element: <App />,
+            children : [
+              {
+                path: "",
+                element: <ModifyInventory />,
+              },
+              {
+                path: "updateItem/:id",
+                element: <ItemForm />,
+              },
+            ]
           },
           {
             path: "processreturns",
@@ -182,7 +193,7 @@ const router = createBrowserRouter([
           },
           {
             path: "accountmanager",
-            element: <CreateMember />,
+            element: <AccountManager />,
           },
           {
             path: "profile",

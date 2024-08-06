@@ -2,26 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 
-const Item = (props) => (
+const User = (props) => (
   <tr>
     <td>
       <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
         <div className="justify-items-start">
-          <p>{props.item.type}: {props.item.name}</p>
-          <p>Quantity Available: {props.item.copyNum}</p>
+          <p>Username: {props.user.username}</p>
+          <p>Account Level: {props.user.permissions}</p>
         </div>
         <div>
-          <Link
-            className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2"
-            to={`./updateItem/${props.item._id}`}
-          >
-            Modify
-          </Link>
           <button
             className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2"
             type="button"
             onClick={() => {
-              props.deleteItem(props.item._id);
+              props.deleteUser(props.user._id);
             }}
           >
             Delete
@@ -32,42 +26,42 @@ const Item = (props) => (
   </tr>
 );
 
-export default function ItemList() {
-  const [items, setItems] = useState([]);
+export default function AccountList() {
+  const [users, setUsers] = useState([]);
 
   // This method fetches the items from the database.
   useEffect(() => {
-    async function getItems() {
-      const response = await fetch(`http://localhost:5050/item/`);
+    async function getUsers() {
+      const response = await fetch(`http://localhost:5050/user/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
-      const items = await response.json();
-      setItems(items);
+      const users = await response.json();
+      setUsers(users);
     }
-    getItems();
+    getUsers();
     return;
-  }, [items.length]);
+  }, [users.length]);
 
   // This method will delete a item
-  async function deleteItem(id) {
-    await fetch(`http://localhost:5050/item/${id}`, {
+  async function deleteUser(id) {
+    await fetch(`http://localhost:5050/user/${id}`, {
       method: "DELETE",
     });
-    const newItems = items.filter((el) => el._id !== id);
-    setItems(newItems);
+    const newUsers = users.filter((el) => el._id !== id);
+    setUsers(newUsers);
   }
 
   // This method will map out the items on the table
-  function itemList() {
-    return items.map((item) => {
+  function accountList() {
+    return users.map((user) => {
       return (
-        <Item
-          item={item}
-          deleteItem={() => deleteItem(item._id)}
-          key={item._id}
+        <User
+          user={user}
+          deleteUser={() => deleteUser(user._id)}
+          key={user._id}
         />
       );
     });
@@ -77,7 +71,7 @@ export default function ItemList() {
   return (
     <table class = "min-w-full divide-y divide-gray-200">
       <tbody className="bg-white divide-y divide-gray-200">
-        {itemList()}
+        {accountList()}
       </tbody>
     </table>
   );

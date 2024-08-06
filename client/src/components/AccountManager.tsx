@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import { NavLink, Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import ItemForm from "./ItemForm";
-import ItemList from "./InventoryEditList"
+import CreateAccount from "./CreateAccount";
+import AccountList from "./AccountList"
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 
-function EditInventory() {
+function AccountManager() {
   const [activeTab, setActiveTab] = useState('view');
 
   const renderContent = () => {
     if (activeTab === 'view') {
-      return <ViewInventory />;
+      return <ViewAccounts />;
     } else if (activeTab === 'add') {
-      return <ItemForm />;
+      return <CreateAccount />;
     }
   };
 
@@ -27,13 +27,13 @@ function EditInventory() {
           className={activeTab === 'view' ? 'active' : ''}
           onClick={() => setActiveTab('view')}
         >
-          View Inventory
+          View Accounts
         </button>
         <button
           className={activeTab === 'add' ? 'active' : ''}
           onClick={() => setActiveTab('add')}
         >
-          Add Inventory
+          Add Account
         </button>
       </div>
       <div className="tab-content">
@@ -108,7 +108,7 @@ function EditInventory() {
   );
 }
 
-function ViewInventory() {
+function ViewAccounts() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -131,7 +131,7 @@ function ViewInventory() {
   const [value, onChange] = useState<Value>(new Date());
   return (
     <div>
-      <h1 style={{ fontSize: '2em' }}>Inventory Manager</h1>
+      <h1 style={{ fontSize: '2em' }}>Account Manager</h1>
       <input
         type="text"
         placeholder="Search..."
@@ -139,29 +139,12 @@ function ViewInventory() {
         onChange={handleSearch}
         style={{ width: '800px', border: '2px solid' }}
       />
-      {/* First type of dropdown, so that filters for books don't apear for electronics */}
-      <select value={selectedCategory} onChange={handleCategoryChange} style={{ marginLeft: '10px', padding: '10px', border: '2px solid' }}>
-        <option value="">Select Category</option>
-        <option value="books">Books</option>
-        <option value="electronics">Electronics</option>
-      </select>
-
-      {/* Only appears if the user selects books (in the requirements I think) */}
-      {selectedCategory === 'books' && (
-        <select value={selectedGenre} onChange={handleGenreChange} style={{ marginLeft: '10px', padding: '10px', border: '2px solid' }}>
-          <option value="">Select Genre</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="mystery">Mystery</option>
-          <option value="science-fiction">Science Fiction</option>
-          {/* Add more genres as needed */}
-        </select>
-      )}
 
       {/* List of all items from InventoryEditList */}      
-      {ItemList()}
+      {AccountList()}
 
     </div>
   );
 }
 
-export default EditInventory;
+export default AccountManager;

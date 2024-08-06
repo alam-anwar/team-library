@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function CreateMember() {
+export default function CreateAccount() {
   const [form, setForm] = useState({
     username: "",
     email:"",
     password: "",
     phone: "",
+    permissions: "",
   });
   const navigate = useNavigate();
 
@@ -21,7 +22,6 @@ export default function CreateMember() {
   async function onSubmit(e) {
     e.preventDefault();
     const newUser = { ...form };
-    newUser.permissions = "member";
 
     try {
       let response;
@@ -41,14 +41,14 @@ export default function CreateMember() {
     } catch (error) {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
-      setForm({ username: "", email: "", password: "", phone_number: ""});
+      setForm({ username: "", email: "", password: "", phone_number: "", permissions: ""});
     }
   }
 
   // Input Form
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Add New Member</h3>
+      <h3 className="text-lg font-semibold p-4">Add Member</h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
@@ -97,9 +97,41 @@ export default function CreateMember() {
             onChange={(e) => updateForm({ email: e.target.value })}
           />
         </div>
+        <div className="form-group">
+          <label>Account Level</label>
+          <div className="radio-group">
+            <label><input
+              id="member"
+              name="typeOptions"
+              type="radio"
+              value="member"
+              className="mr-1"
+              checked={form.permissions === "member"}
+              onChange={(e) => updateForm({ permissions: e.target.value })}
+            /> Member</label>
+            <label><input
+              id="employee"
+              name="typeOptions"
+              type="radio"
+              value="employee"
+              className="mr-1"
+              checked={form.permissions === "employee"}
+              onChange={(e) => updateForm({ permissions: e.target.value })}
+            /> Employee</label>
+            <label><input
+              id="admin"
+              name="typeOptions"
+              type="radio"
+              value="admin"
+              className="mr-1"
+              checked={form.permissions === "admin"}
+              onChange={(e) => updateForm({ permissions: e.target.value })}
+            /> Admin</label>
+          </div>
+        </div>
         <input
           type="submit"
-          value="Register"
+          value="Add New Member"
           className="inline-flex items-center justify-center font-medium border h-9 rounded-md px-3 cursor-pointer mt-4 border-gray-400"
         />
       </form>
