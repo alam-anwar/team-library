@@ -193,12 +193,13 @@ app.post('/createmember', async (req, res) => {
 // Employee Calendar (example implementation)
 app.get('/employee/calendar', async (req, res) => {
     try {
-        // Logic to retrieve employee calendar data
-        res.status(200).send("Employee calendar data");
+        const calendarEvents = await records.findAllEvents(); // Modify this based on your calendar data structure
+        res.status(200).json(calendarEvents);
     } catch (err) {
-        res.status(500).send("Error fetching employee calendar");
+        res.status(500).send("Error fetching calendar events");
     }
 });
+
 
 // Admin Delete Account
 app.delete('/admin/deleteaccount', async (req, res) => {
@@ -214,10 +215,10 @@ app.delete('/admin/deleteaccount', async (req, res) => {
 // Admin Calendar (example implementation)
 app.get('/admin/calendar', async (req, res) => {
     try {
-        // Logic to retrieve admin calendar data
-        res.status(200).send("Admin calendar data");
+        const calendarEvents = await records.findAllEvents(); // Replace 'records' with the actual model/method you use to fetch events
+        res.status(200).json(calendarEvents);
     } catch (err) {
-        res.status500().send("Error fetching admin calendar");
+        res.status(500).send("Error fetching admin calendar events");
     }
 });
 
