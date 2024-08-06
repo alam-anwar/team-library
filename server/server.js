@@ -5,6 +5,8 @@ import items from "./routes/item.js";
 import users from "./routes/user.js";
 import events from "./routes/event.js";
 
+import { createHmac } from "node:crypto"
+
 const app = express();
 
 app.use(cors());
@@ -29,10 +31,20 @@ app.post('/checkout', (req, res) => {
 });
 
 // todo: fix
-app.post('/register', (req, res) => {
-    res.status(400).send({
-        message: "Invalid username"
-    });
+app.post('/user', async (req, res) => {
+    const user = {
+        username: req.body.username,
+        email: req.body.email,
+        phone_number: req.body.phone_number,
+        password: req.body.password
+    }
+
+    const hash = createHmac('sha256', user.password).digest('hex');
+
+    user.password = hash;
+
+    const result = await records.addOneUser(user);
+    res.send(result).status(200);
 });
 
 // start the Express server

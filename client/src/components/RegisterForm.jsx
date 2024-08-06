@@ -19,8 +19,9 @@ export default function Register() {
   const isNew = useParams().id == undefined;
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Submit button pressed.")
     const newUser = { ...form };
     newUser.permissions = "member";
 
@@ -28,7 +29,7 @@ export default function Register() {
       let response;
 
       //Posting new record
-      response = await fetch("http://localhost:5050/user", {
+      response = fetch("http://localhost:5050/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,8 +43,8 @@ export default function Register() {
     } catch (error) {
       console.error('A problem occurred with your fetch operation: ', error);
     } finally {
-      setForm({ username: "", email: "", password: "", phone_number: ""});
-      navigate("/profile");
+      setForm({ username: "hello", email: "hello", password: "", phone_number: ""});
+      navigate("/member/profile");
     }
   };
 
