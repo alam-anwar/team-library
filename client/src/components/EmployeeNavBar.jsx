@@ -5,7 +5,7 @@ export default function EmployeeNavbar() {
     <div>
       <nav className="flex justify-between items-center mb-6">
         <div className="flex">
-          <NavLink to="/employee/modifyinventory">
+          <NavLink to="/employee/inventorymanager">
             <img alt="Libbie logo" className="h-10 inline mr-6" src="https://uspto.report/TM/90366305/mark.png"></img>
           </NavLink>
         </div>
