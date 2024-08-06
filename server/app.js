@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { UserProvider } from './context/UserContext'; // Adjust the path as necessary
+import { UserProvider } from 'server/UserContext.js';
 
 const App = () => {
     return (
