@@ -107,12 +107,36 @@ function CheckoutPage() {
           }
         `}
       </style>
+      <body className="bg-gray-100 py-10">
+        <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-bold mb-6 text-center">{item.name}</h1>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">{item.type}</h2>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Location</h2>
+            <p className="text-gray-700">{item.location}</p>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Description</h2>
+            <p className="text-gray-700">{item.description}</p>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Genre</h2>
+            <p className="text-gray-700">{item.genre}</p>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Number of Copies Available</h2>
+            <p className="text-gray-700">{item.copyNum}</p>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Versions</h2>
+            <p className="text-gray-700">{item.versions}</p>
+          </div>
+        </div>
+      </body>
       <div className="checkout-page">
         <h1 className="checkout-heading">Checkout</h1>
-        <div className="text-container">
-          <h1>{item.name}</h1>
-          <p>{item.description}</p>
-        </div>
         <div>
           <h1>Closest Availability: 5 days</h1>
         </div>
