@@ -290,11 +290,22 @@ app.get('/updateevent', async (req, res) => {
 app.post('/rsvp', async (req, res) => {
     try {
         const { userId, eventId } = req.body;
+        console.log("Received userId:", userId);
+        console.log("Received eventId:", eventId);
+
         const user = await records.findOneUser({ _id: new ObjectId(userId) });
         const event = await records.findOneEvent({ _id: new ObjectId(eventId) });
 
+        console.log("Fetched user:", user);
+        console.log("Fetched event:", event);
+
         if (!user || !event) {
+            console.error("User or Event not found");
             return res.status(404).send("User or Event not found");
+        }
+
+        if (!event.attendees) {
+            event.attendees = [];
         }
 
         event.attendees.push(userId);
@@ -302,9 +313,12 @@ app.post('/rsvp', async (req, res) => {
 
         res.status(200).send("RSVP successful");
     } catch (err) {
+        console.error("Error during RSVP:", err);
         res.status(500).send("Error during RSVP");
     }
 });
+
+
 
 // Start the Express server
 const PORT = process.env.PORT || 5050;
