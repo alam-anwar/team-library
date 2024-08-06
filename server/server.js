@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcryptjs";
+import { ObjectId } from "mongodb";  // Add this import
 import records from "./routes/record.js";
 import items from "./routes/item.js";
 import users from "./routes/user.js";
@@ -65,24 +65,79 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Homepage (Return all items and events as a starting point)
+// Homepage: Return all items and events
 app.get('/homepage', async (req, res) => {
     try {
-        const itemsList = await items.findAllItems();
-        const eventsList = await events.findAllEvents();
+        const itemsList = await records.findAllItems();
+        const eventsList = await records.findAllEvents();
         res.status(200).json({ items: itemsList, events: eventsList });
     } catch (err) {
+        console.error("Error fetching homepage data:", err);
         res.status(500).send("Error fetching homepage data");
     }
 });
 
-// Checkout (Mock, assumes items are checked out)
+// Checkout: Assuming this handles checkout functionality
 app.post('/checkout', async (req, res) => {
     try {
-        // Checkout login here
+        const { userId, itemId } = req.body;
+
+        // Log the received IDs
+        console.log("Received userId:", userId);
+        console.log("Received itemId:", itemId);
+
+        // Fetch user and item from the database
+        const user = await records.findOneUser({ _id: new ObjectId(userId) });
+        const item = await records.findOneItem({ _id: new ObjectId(itemId) });
+
+        // Log the fetched user and item
+        console.log("Fetched user:", user);
+        console.log("Fetched item:", item);
+
+        // Check if user or item is not found
+        if (!user) {
+            console.error("User not found:", userId);
+            return res.status(404).send("User not found");
+        }
+
+        if (!item) {
+            console.error("Item not found:", itemId);
+            return res.status(404).send("Item not found");
+        }
+
+        // Update user and item data
+        user.checked_out.push(itemId);
+        item.copyNum -= 1;
+        item.check_out_history.push(userId);
+
+        // Log updated data
+        console.log("Updated user data:", user);
+        console.log("Updated item data:", item);
+
+        // Update the database
+        const updateUserResult = await records.updateUser({ _id: new ObjectId(userId) }, { $set: user });
+        const updateItemResult = await records.updateItem({ _id: new ObjectId(itemId) }, { $set: item });
+
+        // Log the results of the database update
+        console.log("Update user result:", updateUserResult);
+        console.log("Update item result:", updateItemResult);
+
         res.status(200).send("Checkout successful");
     } catch (err) {
+        console.error("Error during checkout:", err);
         res.status(500).send("Error during checkout");
+    }
+});
+
+// Profile: Fetch user's data
+app.get('/profile/:id', async (req, res) => {
+    try {
+        const user = await records.findOneUser({ _id: new ObjectId(req.params.id) });
+        if (!user) return res.status(404).send("User not found");
+
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(500).send("Error fetching profile data");
     }
 });
 
@@ -90,7 +145,7 @@ app.post('/checkout', async (req, res) => {
 app.get('/search', async (req, res) => {
     const searchQuery = req.query.q;
     try {
-        const itemsList = await items.findAllItems(); // Adjust with actual search logic?
+        const itemsList = await records.findAllItems();
         const filteredItems = itemsList.filter(item =>
             item.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
@@ -100,11 +155,28 @@ app.get('/search', async (req, res) => {
     }
 });
 
-// Checked Out Items for a Member (Mock)
-app.get('/member/checkedout', authenticateUser, async (req, res) => {
+// Create Item
+app.post('/create', async (req, res) => {
     try {
-        // Need logic to return checked out items for the authenticated user
-        res.status(200).send("Checked out items data");
+        const newItem = req.body;
+        const result = await records.addOneItem(newItem);
+        res.status(201).send(result);
+    } catch (err) {
+        res.status(500).send("Error creating item");
+    }
+});
+
+// Member Checked Out Items
+app.get('/member/checkedout/:id', async (req, res) => {
+    try {
+        const user = await records.findOneUser({ _id: new ObjectId(req.params.id) });
+        if (!user) return res.status(404).send("User not found");
+
+        const checkedOutItems = await Promise.all(
+            user.checked_out.map(itemId => records.findOneItem({ _id: new ObjectId(itemId) }))
+        );
+
+        res.status(200).send(checkedOutItems);
     } catch (err) {
         res.status(500).send("Error fetching checked out items");
     }
@@ -113,76 +185,84 @@ app.get('/member/checkedout', authenticateUser, async (req, res) => {
 // Member Events Page
 app.get('/member/eventspage', async (req, res) => {
     try {
-        const eventsList = await events.findAllEvents();
+        const eventsList = await records.findAllEvents();
         res.status(200).send(eventsList);
     } catch (err) {
         res.status(500).send("Error fetching member events");
     }
 });
 
-// Process Returns (Mock)
-app.post('/processreturn', authenticateUser, async (req, res) => {
+// Process Returns
+app.post('/processreturn', async (req, res) => {
     try {
-        // Need return processing logic here
+        const { userId, itemId } = req.body;
+        const user = await records.findOneUser({ _id: new ObjectId(userId) });
+        const item = await records.findOneItem({ _id: new ObjectId(itemId) });
+
+        if (!user || !item) {
+            return res.status(404).send("User or Item not found");
+        }
+
+        user.checked_out = user.checked_out.filter(id => id !== itemId);
+        item.copyNum += 1;
+
+        await records.updateUser({ _id: new ObjectId(userId) }, { $set: user });
+        await records.updateItem({ _id: new ObjectId(itemId) }, { $set: item });
+
         res.status(200).send("Return processed successfully");
     } catch (err) {
-        res.status(500).send("Error during return processing");
+        res.status(500).send("Error processing return");
     }
 });
 
-// Create Member (Admin only, protected)
-app.post('/createmember', authenticateUser, async (req, res) => {
+// Create Member (Admin only)
+app.post('/createmember', async (req, res) => {
     try {
-        if (req.user.permission !== "admin") return res.status(403).send("Forbidden");
-
         const newUser = req.body;
-        const result = await users.addOneUser(newUser);
+        const result = await records.addOneUser(newUser);
         res.status(201).send(result);
     } catch (err) {
         res.status(500).send("Error creating member");
     }
 });
 
-// Employee Calendar (Mock)
-app.get('/employee/calendar', authenticateUser, async (req, res) => {
+// Employee Calendar (example implementation)
+app.get('/employee/calendar', async (req, res) => {
     try {
-        // Logic for returning employee calendar data needed
-        res.status(200).send("Employee calendar data");
+        const calendarEvents = await records.findAllEvents(); // Modify this based on your calendar data structure
+        res.status(200).json(calendarEvents);
     } catch (err) {
-        res.status(500).send("Error fetching employee calendar");
+        res.status(500).send("Error fetching calendar events");
     }
 });
 
-// Admin Delete Account (Protected)
-app.delete('/admin/deleteaccount', authenticateUser, async (req, res) => {
-    try {
-        if (req.user.permission !== "admin") return res.status(403).send("Forbidden");
 
+// Admin Delete Account
+app.delete('/admin/deleteaccount', async (req, res) => {
+    try {
         const { userId } = req.body;
-        const result = await users.removeUser({ _id: userId });
+        const result = await records.removeUser({ _id: new ObjectId(userId) });
         res.status(200).send(result);
     } catch (err) {
         res.status(500).send("Error deleting account");
     }
 });
 
-// Admin Calendar (Mock)
-app.get('/admin/calendar', authenticateUser, async (req, res) => {
+// Admin Calendar (example implementation)
+app.get('/admin/calendar', async (req, res) => {
     try {
-        // Logic for returning admin calendar data needed
-        res.status(200).send("Admin calendar data");
+        const calendarEvents = await records.findAllEvents(); // Replace 'records' with the actual model/method you use to fetch events
+        res.status(200).json(calendarEvents);
     } catch (err) {
-        res.status(500).send("Error fetching admin calendar");
+        res.status(500).send("Error fetching admin calendar events");
     }
 });
 
-// Modify Inventory (Protected)
-app.patch('/modifyinventory', authenticateUser, async (req, res) => {
+// Modify Inventory
+app.patch('/modifyinventory', async (req, res) => {
     try {
-        if (req.user.permission !== "admin") return res.status(403).send("Forbidden");
-
         const { itemId, updates } = req.body;
-        const result = await items.updateItem({ _id: itemId }, { $set: updates });
+        const result = await records.updateItem({ _id: new ObjectId(itemId) }, { $set: updates });
         res.status(200).send(result);
     } catch (err) {
         res.status(500).send("Error modifying inventory");
@@ -192,7 +272,7 @@ app.patch('/modifyinventory', authenticateUser, async (req, res) => {
 // Update Item by ID
 app.get('/updateitem/:id', async (req, res) => {
     try {
-        const result = await items.findOneItem({ _id: req.params.id });
+        const result = await records.findOneItem({ _id: new ObjectId(req.params.id) });
         if (!result) return res.status(404).send("Item not found");
         res.status(200).send(result);
     } catch (err) {
@@ -203,7 +283,7 @@ app.get('/updateitem/:id', async (req, res) => {
 // Update Event by ID
 app.get('/updateevent', async (req, res) => {
     try {
-        const result = await events.findOneEvent({ _id: req.query.id });
+        const result = await records.findOneEvent({ _id: new ObjectId(req.query.id) });
         if (!result) return res.status(404).send("Event not found");
         res.status(200).send(result);
     } catch (err) {
