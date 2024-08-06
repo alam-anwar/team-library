@@ -62,11 +62,11 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-slate-900">Email</label>
-            <input type="email" name="email" id="email" value={form.email} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+            <input type="text" name="email" id="email" value={form.email} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
           </div>
           <div>
             <label htmlFor="phone_number" className="block text-sm font-medium leading-6 text-slate-900">Phone Number</label>
-            <input type="phone_number" name="phone_number" id="phone_number" value={form.phone_number} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
+            <input type="text" name="phone_number" id="phone_number" value={form.phone_number} onChange={updateForm} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center" />
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium leading-6 text-slate-900">Password</label>

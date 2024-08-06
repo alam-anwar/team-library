@@ -18,6 +18,7 @@ import MemberNavbar from "./components/MemberNavBar";
 import CheckedOut from "./components/ViewCheckedOut";
 import EventsPage from "./components/EventsPage";
 import EmployeeNavbar from "./components/EmployeeNavBar";
+import Navbar from "./components/Navbar"
 import ProcessReturns from "./components/ProcessReturns";
 import CreateMember from "./components/CreateMember";
 import EmployeeCalendar from "./components/EmployeeCalendar";
@@ -33,42 +34,90 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      /********************************NON-MEMBER PAGES********************************/
       {
         path: "/",
         element: (
           <>
-            <AdminNavbar />
-            <ModifyInventory />
+            <Navbar />
+            <InventorySearch />
+          </>
+        )
+
+      },
+      {
+        path: "/inventory",
+        element: (
+          <>
+            <Navbar />
+            <InventorySearch />
           </>
         )
       },
       {
+        path: "/calendar",
+        element: (
+          <>
+            <Navbar />
+            <EventsPage />
+          </>
+        ),
+      },
+      {
         path: "/login",
-        element: <LoginForm />,
+        element: (
+          <>
+            <Navbar />
+            <LoginForm />
+          </>
+        )
       },
       {
         path: "/register",
-        element: <RegisterForm />,
+        element: (
+          <>
+            <Navbar />
+            <RegisterForm />
+          </>
+        )
       },
       {
+        //Will fix this
         path: "/homepage",
-        element: <LandingPage />,
+        element: (
+          <>
+            <Navbar />
+            <LandingPage />
+          </>
+        )
       },
+      /********************************MEMBER PAGES********************************/
       {
         path: "/checkout",
-        element: <CheckoutPage />,
+        element: (
+          <>
+            <MemberNavbar />
+            <CheckoutPage />
+          </>
+        )
       },
       {
-        path: "/profile",
-        element: <ProfileView />,
+        path: "/member/profile",
+        element: (
+          <>
+            <MemberNavbar />
+            <ProfileView />
+          </>
+        )
       },
       {
-        path: "/inventory",
-        element: <InventorySearch />,
-      },
-      {
-        path: "/create",
-        element: <ItemForm />,
+        path: "/member/inventory",
+        element: (
+          <>
+            <MemberNavbar />
+            <InventorySearch />
+          </>
+        )
       },
       {
         path: "/member/checkedout",
@@ -80,7 +129,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/member/eventspage",
+        path: "/member/calendar",
         element: (
           <>
             <MemberNavbar />
@@ -88,8 +137,9 @@ const router = createBrowserRouter([
           </>
         ),
       },
+      /********************************EMPLOYEE PAGES********************************/
       {
-        path: "/processreturn",
+        path: "/employee/processreturn",
         element: (
           <>
             <EmployeeNavbar />
@@ -98,11 +148,38 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/createmember",
+        path: "/employee/profile",
+        element: (
+          <>
+            <EmployeeNavbar />
+            <ProfileView />
+          </>
+        )
+      },
+      {
+        path: "/employee/accountmanager",
         element: (
           <>
             <EmployeeNavbar />
             <CreateMember />
+          </>
+        ),
+      },
+      {
+        path: "/employee/modifyinventory",
+        element: (
+          <>
+            <EmployeeNavbar />
+            <ModifyInventory />
+          </>
+        ),
+      },
+      {
+        path: "/admin/processreturn",
+        element: (
+          <>
+            <EmployeeNavbar />
+            <ProcessReturns />
           </>
         ),
       },
@@ -115,12 +192,23 @@ const router = createBrowserRouter([
           </>
         ),
       },
+      /********************************ADMIN PAGES********************************/
       {
         path: "/admin/deleteaccount",
         element: (
           <>
             <AdminNavbar />
             <DeleteAccount />
+          </>
+        ),
+      },
+      /*^^^^ Take this one out ^^^^*/
+      {
+        path: "/admin/accountmanager",
+        element: (
+          <>
+            <AdminNavbar />
+            <CreateMember />
           </>
         ),
       },
@@ -134,7 +222,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/modifyinventory",
+        path: "/admin/modifyinventory",
         element: (
           <>
             <AdminNavbar />
