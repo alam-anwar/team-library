@@ -40,215 +40,147 @@ const router = createBrowserRouter([
         element: (
           <>
             <Navbar />
-            <InventorySearch />
-          </>
-        )
-
-      },
-      {
-        path: "/inventory",
-        element: (
-          <>
-            <Navbar />
-            <InventorySearch />
-          </>
-        )
-      },
-      {
-        path: "/calendar",
-        element: (
-          <>
-            <Navbar />
-            <EventsPage />
+            <App />
           </>
         ),
-      },
-      {
-        path: "/login",
-        element: (
-          <>
-            <Navbar />
-            <LoginForm />
-          </>
-        )
-      },
-      {
-        path: "/register",
-        element: (
-          <>
-            <Navbar />
-            <RegisterForm />
-          </>
-        )
-      },
-      {
-        //Will fix this
-        path: "/homepage",
-        element: (
-          <>
-            <Navbar />
-            <LandingPage />
-          </>
-        )
+        children: [
+          {
+            path: "/",
+            element: <InventorySearch />
+          },
+          {
+            path: "/inventory",
+            element: <InventorySearch />
+          },
+          {
+            path: "/calendar",
+            element: <EventsPage />
+          },
+          {
+            path: "/login",
+            element: <LoginForm />
+          },
+          {
+            path: "/register",
+            element: <RegisterForm />
+          },
+          {
+            //Will fix this
+            path: "/homepage",
+            element: <LandingPage />
+          },
+          
+        ]
       },
       /********************************MEMBER PAGES********************************/
       {
-        path: "/checkout",
+        path: "/member/*",
         element: (
           <>
             <MemberNavbar />
-            <CheckoutPage />
-          </>
-        )
-      },
-      {
-        path: "/member/profile",
-        element: (
-          <>
-            <MemberNavbar />
-            <ProfileView />
-          </>
-        )
-      },
-      {
-        path: "/member/inventory",
-        element: (
-          <>
-            <MemberNavbar />
-            <InventorySearch />
-          </>
-        )
-      },
-      {
-        path: "/member/checkedout",
-        element: (
-          <>
-            <MemberNavbar />
-            <CheckedOut />
+            <App />
           </>
         ),
-      },
-      {
-        path: "/member/calendar",
-        element: (
-          <>
-            <MemberNavbar />
-            <EventsPage />
-          </>
-        ),
+        children : [
+          {
+            path: "calendar",
+            element: <EventsPage />
+          },
+          {
+            path: "inventory",
+            element: <InventorySearch />
+          },
+          {
+            path: "checkedout",
+            element: <CheckedOut />
+          },
+          {
+            path: "profile",
+            element: <ProfileView />
+          },
+          {
+            path: "checkout",
+            element: <CheckoutPage />
+          },
+        ]
       },
       /********************************EMPLOYEE PAGES********************************/
       {
-        path: "/employee/processreturn",
+        path: "/employee/*",
         element: (
           <>
             <EmployeeNavbar />
-            <ProcessReturns />
+            <App />
           </>
         ),
-      },
-      {
-        path: "/employee/profile",
-        element: (
-          <>
-            <EmployeeNavbar />
-            <ProfileView />
-          </>
-        )
-      },
-      {
-        path: "/employee/accountmanager",
-        element: (
-          <>
-            <EmployeeNavbar />
-            <CreateMember />
-          </>
-        ),
-      },
-      {
-        path: "/employee/modifyinventory",
-        element: (
-          <>
-            <EmployeeNavbar />
-            <ModifyInventory />
-          </>
-        ),
-      },
-      {
-        path: "/admin/processreturn",
-        element: (
-          <>
-            <EmployeeNavbar />
-            <ProcessReturns />
-          </>
-        ),
-      },
-      {
-        path: "/employee/calendar",
-        element: (
-          <>
-            <EmployeeNavbar />
-            <EmployeeCalendar />
-          </>
-        ),
+        children : [
+          {
+            path: "calendar",
+            element: <EventsPage />
+          },
+          {
+            path: "modifyinventory",
+            element: <ModifyInventory />
+          },
+          {
+            path: "processreturns",
+            element: <ProcessReturns />
+          },
+          {
+            path: "accountmanager",
+            element: <CreateMember />
+          },
+          {
+            path: "profile",
+            element: <ProfileView />
+          },
+          {
+            path: "checkout",
+            element: <CheckoutPage />
+          },
+          
+        ]
       },
       /********************************ADMIN PAGES********************************/
       {
-        path: "/admin/deleteaccount",
+        path: "/admin/*",
         element: (
           <>
             <AdminNavbar />
-            <DeleteAccount />
+            <App />
           </>
         ),
-      },
-      /*^^^^ Take this one out ^^^^*/
-      {
-        path: "/admin/accountmanager",
-        element: (
-          <>
-            <AdminNavbar />
-            <CreateMember />
-          </>
-        ),
-      },
-      {
-        path: "/admin/calendar",
-        element: (
-          <>
-            <AdminNavbar />
-            <AdminCalendar />
-          </>
-        ),
-      },
-      {
-        path: "/admin/modifyinventory",
-        element: (
-          <>
-            <AdminNavbar />
-            <ModifyInventory />
-          </>
-        ),
-      },
-      {
-        path: "/updateitem/:id",
-        element: (
-          <>
-            <AdminNavbar />
-            <ItemForm/>
-          </>
-        ),
-      },
-      {
-        path: "/updateevent",
-        element: (
-          <>
-            <AdminNavbar />
-            <UpdateEvent/>
-          </>
-        ),
-      },
-      
+        children : [
+          {
+            path: "calendar",
+            element: <EventsPage />
+          },
+          {
+            path: "modifyinventory",
+            element: <ModifyInventory />
+          },
+          {
+            path: "processreturns",
+            element: <ProcessReturns />
+          },
+          {
+            path: "accountmanager",
+            element: <CreateMember />
+          },
+          {
+            path: "profile",
+            element: <ProfileView />
+          },
+          {
+            path: "updateitem/:id",
+            element: <ItemForm />
+          },
+          {
+            path: "updateevent",
+            element: <UpdateEvent />
+          },
+        ]
+      },     
     ],
   },
 ]);
