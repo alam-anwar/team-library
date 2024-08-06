@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
+import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
-import EventsPage from './EventsPage';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 
 function EmployeeCalendar() {
   const [activeTab, setActiveTab] = useState('view');
 
   const renderContent = () => {
     if (activeTab === 'view') {
-      return <EventsPage />;
+      return <ViewEvents />;
     } else if (activeTab === 'create') {
       return <CreateEvent />;
     } else{
-      return <EventsPage />;
+      return <ViewEvents />;
     }
   };
 
@@ -108,9 +107,23 @@ function EmployeeCalendar() {
   );
 }
 
-/*
 function ViewEvents() {
   const [value, onChange] = useState<Value>(new Date());
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:5050/employee/calendar');
+        setEvents(response.data);
+      } catch (err) {
+        console.error("Error fetching calendar events", err);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -118,85 +131,29 @@ function ViewEvents() {
         <div className="-container" style={{ marginLeft: 200}}>
           <h2 className="event-title">Events</h2>
           <div className="event-content">
-          <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <p>Title: Al's siesta</p>
-              <p>Description: Placeholder description.</p>
-              <p>Time: 3:00pm</p>
-              <p>Location: Al's house</p>
-              <p>Date: 7/30/2024</p>
-            </div>
-            <button style={{ backgroundColor: 'green', padding: '5px', margin: '10px', borderRadius: '5px'}}>RSVP</button>
-          </div>
+            {events.map(event => (
+              <div key={event._id} style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <p>Title: {event.name}</p>
+                  <p>Description: {event.description}</p>
+                  <p>Time: {event.startTime}</p>
+                  <p>Location: {event.location}</p>
+                  <p>Date: {event.date}</p>
+                </div>
+                <button style={{ backgroundColor: 'green', padding: '5px', margin: '10px', borderRadius: '5px'}}>RSVP</button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
 }
-*/
 
 function CreateEvent() {
-  const [form, setForm] = useState({
-    name: "",
-    date: "",
-    startTime: "",
-    endTime: "",
-    location: "",
-    imageLink: "",
-    description: "",
-    approved: false,
-  });
-
-  function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-  }
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    const newEvent = { ...form };
-    console.log(newEvent);
-
-    try {
-      let response;
-
-      //Posting new record
-      response = fetch("http://localhost:5050/event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newEvent),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error('A problem occurred with your fetch operation: ', error);
-    } finally {
-      setForm({
-        name: "",
-        date: "",
-        startTime: "",
-        endTime: "",
-        location: "",
-        imageLink: "",
-        description: "",
-        approved: false,
-      });
-    }
-  }
-
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <img alt="Event Image" className="h-40 inline pb-10" src={form.imageLink}></img>
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-md p-6 bg-gray-100 rounded-lg shadow-md text-center"
-      >
+    <div className="flex justify-center items-center h-screen">
+      <form className="w-full max-w-md p-6 bg-gray-100 rounded-lg shadow-md text-center">
         <div className="form-group">
           <label htmlFor="eventName" className="block text-sm font-medium text-gray-700">
             Event Name
@@ -205,16 +162,13 @@ function CreateEvent() {
             type="text"
             id="eventName"
             name="eventName"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-left"
-            placeholder="Enter event name"
-            value={form.name}
-            onChange={(e) => updateForm({ name: e.target.value })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center"
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700 text-center">
             Event Date
           </label>
           <input
@@ -222,85 +176,44 @@ function CreateEvent() {
             id="eventDate"
             name="eventDate"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center"
-            value={form.date}
-            onChange={(e) => updateForm({ date: e.target.value })}
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
-            Start Time
+          <label htmlFor="eventTime" className="block text-sm font-medium text-gray-700">
+            Event Time
           </label>
           <input
             type="time"
-            id="startTime"
-            name="startTime"
+            id="eventTime"
+            name="eventTime"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center"
-            value={form.startTime}
-            onChange={(e) => updateForm({ startTime: e.target.value })}
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
-            End Time
-          </label>
-          <input
-            type="time"
-            id="endTime"
-            name="endTime"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center"
-            value={form.endTime}
-            onChange={(e) => updateForm({ endTime: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="eventLocation" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="eventLocation" className="block text-sm font-medium text-gray-700 text-center">
             Event Location
           </label>
           <input
             type="text"
             id="eventLocation"
             name="eventLocation"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-left"
-            placeholder="Enter event location"
-            value={form.location}
-            onChange={(e) => updateForm({ location: e.target.value })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-center"
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="imageLink" className="block text-sm font-medium text-gray-700">
-            Event Image URL
-          </label>
-          <input
-            type="text"
-            id="imageLink"
-            name="imageLink"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-left"
-            placeholder="Enter URL for event image"
-            value={form.imageLink}
-            onChange={(e) => updateForm({ imageLink: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="eventDescription" className="block text-sm font-medium text-gray-700 text-center">
+          <label htmlFor="eventDescription" className="block text-sm font-medium text-gray-700">
             Event Description
           </label>
           <textarea
             id="eventDescription"
             name="eventDescription"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="Enter event description"
-            value={form.description}
-            onChange={(e) => updateForm({ description: e.target.value })}
             required
           ></textarea>
         </div>
