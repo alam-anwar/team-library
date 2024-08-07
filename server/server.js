@@ -37,9 +37,17 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Handle user registration (Assuming frontend handles actual auth)
-app.post('/register', (req, res) => {
-    res.status(200).send("Registration handled on the frontend");
+// Handle user registration
+app.post('/register', async (req, res) => {
+    try {
+        const { username, password, name, email, permission } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = { username, password: hashedPassword, name, email, permission };
+        const result = await users.addOneUser(newUser);
+        res.status(201).send(result);
+    } catch (err) {
+        res.status(500).send("Error during registration");
+    }
 });
 
 // Homepage: Return all items and events

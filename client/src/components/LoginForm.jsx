@@ -28,6 +28,7 @@ export default function Login() {
       setUser(res.data.user);
     } catch (err) {
       setLoginSuccess(false);
+      console.error('A problem occurred with logging in: ', error);
     }
   };
 
