@@ -131,7 +131,7 @@ function ViewInventory() {
   const [value, onChange] = useState<Value>(new Date());
   return (
     <div>
-      <h1 style={{ fontSize: '2em' }}>Modify Inventory</h1>
+      <h1 style={{ fontSize: '2em' }}>Inventory Manager</h1>
       <input
         type="text"
         placeholder="Search..."

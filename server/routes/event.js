@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
     else res.send(result).status(200);
 });
 
-// Creates a event in the database.
+// Creates an event in the database.
 router.post("/", async (req, res) => {
     try {
         let newDocument = {
@@ -36,6 +36,11 @@ router.post("/", async (req, res) => {
             description: req.body.description,
             imageLink: req.body.imageLink,
             date: req.body.date,
+            startTime: req.body.startTime,
+            endTime: req.body.endTime,
+            location: req.body.location,
+            approved: req.body.approved,
+            who_RSVP: [] // Initialize empty array for who RSVP'd
         };
         let collection = await db.collection("events");
         let result = await collection.insertOne(newDocument);
@@ -46,7 +51,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Updates a event in the database by ID.
+// Updates an event in the database by ID.
 router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
@@ -56,7 +61,12 @@ router.patch("/:id", async (req, res) => {
                 description: req.body.description,
                 imageLink: req.body.imageLink,
                 date: req.body.date,
-            },
+                startTime: req.body.startTime,
+                endTime: req.body.endTime,
+                location: req.body.location,
+                approved: req.body.approved,
+                who_RSVP: [] // Initialize empty array for who RSVP'd
+            }
         };
 
         let collection = await db.collection("events");
@@ -68,7 +78,7 @@ router.patch("/:id", async (req, res) => {
     }
 });
 
-// Deletes a event in the database.
+// Deletes an event in the database.
 router.delete("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };

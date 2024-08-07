@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
+
 const Item = (props) => (
   <tr>
     <td>
       <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-        <div>
+        <div className="justify-items-start">
           <p>{props.item.type}: {props.item.name}</p>
-          <p>Quantity Available: 5</p>
-          <p>Descripton: Some placeholder description</p>
+          <p>Quantity Available: {props.item.copyNum}</p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          to={`/updateItem/${props.item._id}`}
-        >
-          Modify
-        </Link>
-        <button
-          className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          type="button"
-          onClick={() => {
-            props.deleteItem(props.item._id);
-          }}
-        >
-          Delete
-        </button>
+        <div>
+          <Link
+            className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2"
+            to={`./updateItem/${props.item._id}`}
+          >
+            Modify
+          </Link>
+          <button
+            className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2"
+            type="button"
+            onClick={() => {
+              props.deleteItem(props.item._id);
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </td>
   </tr>
@@ -73,8 +75,8 @@ export default function ItemList() {
 
   // This following section will display the table with the items of individuals.
   return (
-    <table>
-      <tbody className="[&amp;_tr:last-child]:border-0">
+    <table class = "min-w-full divide-y divide-gray-200">
+      <tbody className="bg-white divide-y divide-gray-200">
         {itemList()}
       </tbody>
     </table>

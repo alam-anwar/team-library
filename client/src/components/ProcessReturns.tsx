@@ -16,6 +16,9 @@ function ProcessReturns() {
       return <ViewRequests />;
     } else if (activeTab === 'returns') {
       return <ViewReturns />;
+    } else {
+      setActiveTab('requests');
+      return <ViewRequests />;
     }
   };
 
@@ -177,6 +180,7 @@ function ViewReturns() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [isReturned, setIsReturned] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -193,6 +197,11 @@ function ViewReturns() {
     setSelectedGenre(e.target.value);
     // Perform filtering logic here based on selected genre
   };
+
+  const handleReturnClick = () => {
+    setIsReturned(true);
+  };
+
   const [value, onChange] = useState<Value>(new Date());
   return (
     <div>
@@ -231,8 +240,11 @@ function ViewReturns() {
           <p>Time to return: 4:00pm</p>
           <p>Name: Abbhinav Sriram</p>
         </div>
-        <button className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3">
-        Process Return
+        <button
+          className={`inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 ${isReturned ? 'bg-green-500 text-white' : ''}`}
+          onClick={handleReturnClick}
+        >
+          {isReturned ? 'Returned' : 'Process Return'}
         </button>
       </div>
     </div>

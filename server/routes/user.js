@@ -11,7 +11,7 @@ import { ObjectId } from "mongodb";
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const router = express.Router();
 
-// Library for ahshing and comparing passwords
+// Library for hashing and comparing passwords
 import bcrypt from 'bcryptjs'
 
 // Find all users.
@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
 
 // Creates a user in the database.
 router.post("/", async (req, res) => {
-    //Hashes password before storing it
+    // Hashes password before storing it
     const hashedPassword = bcrypt.hashSync(req.body.password);
 
     try {
@@ -43,6 +43,9 @@ router.post("/", async (req, res) => {
             password: hashedPassword,
             phone_number: req.body.phone_number,
             permissions: req.body.permissions,
+            checked_out: [],          // Initialize empty array for checked out items
+            reserved_items: [],       // Initialize empty array for reserved items
+            rsvp_events: []           // Initialize empty array for RSVP events
         };
         let collection = await db.collection("users");
         let result = await collection.insertOne(newDocument);
@@ -58,20 +61,14 @@ router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
         const updates = {
-            $set: {
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
-                phone_number: req.body.phone_number,
-                permissions: req.body.permissions,
-            },
+            $set: req.body
         };
 
         let collection = await db.collection("users");
         let result = await collection.updateOne(query, updates);
         res.send(result).status(200);
     } catch (err) {
-        console.error(err);
+        console.error("Error updating user:", err);
         res.status(500).send("Error updating user");
     }
 });

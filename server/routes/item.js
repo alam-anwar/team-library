@@ -39,6 +39,7 @@ router.post("/", async (req, res) => {
             copyNum: req.body.copyNum,
             versions: req.body.versions,
             type: req.body.type,
+            check_out_history: [] // Initialize empty array for check-out history
         };
         let collection = await db.collection("items");
         let result = await collection.insertOne(newDocument);
@@ -54,7 +55,7 @@ router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
         const updates = {
-            $set: {
+            $set:  {
                 name: req.body.name,
                 location: req.body.location,
                 description: req.body.description,

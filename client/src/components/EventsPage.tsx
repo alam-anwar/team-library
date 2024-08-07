@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import EventList from './EventList'
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function EventsPage() {
   const [value, onChange] = useState<Value>(new Date());
-
 
   return (
     <>
@@ -94,14 +94,7 @@ function EventsPage() {
           <div className="-container" style={{ marginLeft: 200}}>
             <h2 className="event-title">Events</h2>
             <div className="event-content">
-            <div style={{ marginTop: '20px', padding: '10px', border: '1px solid', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <p>Title: Al's siesta</p>
-                <p>Description: Al takes a nice short nap on the couch</p>
-                <p>Time: 3:00pm</p>
-              </div>
-              <button style={{ backgroundColor: 'green', padding: '5px', margin: '10px', borderRadius: '5px'}}>RSVP</button>
-            </div>
+              {EventList()}
             </div>
           </div>
         </div>

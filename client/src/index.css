@@ -16,7 +16,7 @@ label {
     padding-right: 14px;
     font-weight: 500;
 }
-input[type="text"], input[type="number"], input[type="password"], textarea {
+input[type="text"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], textarea {
     width: 55%;
     padding: 8px;
     margin: 4px 0;
