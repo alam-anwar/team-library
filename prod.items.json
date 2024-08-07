@@ -1,0 +1,53 @@
+[{
+  "_id": {
+    "$oid": "66b289d8b7fe0751654aff08"
+  },
+  "name": "The Great Gatsby",
+  "location": "Aisle 3, Shelf 2",
+  "description": "A classic novel by F. Scott Fitzgerald.",
+  "genre": "Fiction",
+  "copyNum": 4,
+  "versions": [
+    "Hardcover",
+    "Paperback",
+    "eBook"
+  ],
+  "type": "Book",
+  "check_out_history": [
+    "66b28a80b7fe0751654aff0f"
+  ]
+},
+{
+  "_id": {
+    "$oid": "66b289fab7fe0751654aff09"
+  },
+  "name": "1984",
+  "location": "Aisle 1, Shelf 1",
+  "description": "A dystopian novel by George Orwell.",
+  "genre": "Fiction",
+  "copyNum": 4,
+  "versions": [
+    "Hardcover",
+    "Paperback",
+    "eBook"
+  ],
+  "type": "Book",
+  "check_out_history": []
+},
+{
+  "_id": {
+    "$oid": "66b28a06b7fe0751654aff0a"
+  },
+  "name": "Sapiens",
+  "location": "Aisle 5, Shelf 3",
+  "description": "A brief history of humankind by Yuval Noah Harari.",
+  "genre": "Non-Fiction",
+  "copyNum": 3,
+  "versions": [
+    "Hardcover",
+    "Paperback",
+    "eBook"
+  ],
+  "type": "Book",
+  "check_out_history": []
+}]

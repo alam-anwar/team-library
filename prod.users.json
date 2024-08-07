@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "66b29164b7fe0751654aff1c"
+  },
+  "username": "admin_user",
+  "email": "admin@example.com",
+  "password": "$2a$10$B9am.GYYgkoicvr0/hFog.S0FsEQ4nOFB/7Js67bs1TLVdRDOJnwm",
+  "phone_number": "123-456-7890",
+  "permissions": "admin",
+  "checked_out": [],
+  "reserved_items": [],
+  "rsvp_events": []
+},
+{
+  "_id": {
+    "$oid": "66b29170b7fe0751654aff1d"
+  },
+  "username": "employee_user",
+  "email": "employee@example.com",
+  "password": "$2a$10$q3cJt.d/aFfFhjTWd1a8AuwFMUMmE5jd/jF2ElISBZeN976zr.EJS",
+  "phone_number": "123-456-7891",
+  "permissions": "employee",
+  "checked_out": [],
+  "reserved_items": [],
+  "rsvp_events": []
+},
+{
+  "_id": {
+    "$oid": "66b2917db7fe0751654aff1e"
+  },
+  "username": "member_user1",
+  "email": "member1@example.com",
+  "password": "$2a$10$2QJnL1PfhbaGkjnSnUoTm.YTAEqDXEhN8fdIoz.Ltn5fq/AJnFkpu",
+  "phone_number": "123-456-7892",
+  "permissions": "member",
+  "checked_out": [],
+  "reserved_items": [],
+  "rsvp_events": []
+}]
