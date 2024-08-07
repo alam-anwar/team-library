@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "66b28a4bb7fe0751654aff0c"
+  },
+  "name": "Book Club Meeting",
+  "description": "Monthly meeting to discuss the latest book.",
+  "imageLink": "https://example.com/image.jpg",
+  "date": "2024-09-15",
+  "startTime": "18:00",
+  "endTime": "20:00",
+  "location": "Conference Room A",
+  "approved": true,
+  "who_RSVP": []
+},
+{
+  "_id": {
+    "$oid": "66b28a58b7fe0751654aff0d"
+  },
+  "name": "Author Talk: George Orwell",
+  "description": "A talk about George Orwell's influence on literature.",
+  "imageLink": "https://example.com/image.jpg",
+  "date": "2024-10-01",
+  "startTime": "15:00",
+  "endTime": "16:30",
+  "location": "Main Hall",
+  "approved": true,
+  "who_RSVP": []
+},
+{
+  "_id": {
+    "$oid": "66b28a60b7fe0751654aff0e"
+  },
+  "name": "Writing Workshop",
+  "description": "A workshop for aspiring writers.",
+  "imageLink": "https://example.com/image.jpg",
+  "date": "2024-11-10",
+  "startTime": "10:00",
+  "endTime": "12:00",
+  "location": "Classroom 5",
+  "approved": true,
+  "who_RSVP": []
+}]
