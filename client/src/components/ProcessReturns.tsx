@@ -16,6 +16,9 @@ function ProcessReturns() {
       return <ViewRequests />;
     } else if (activeTab === 'returns') {
       return <ViewReturns />;
+    } else {
+      setActiveTab('requests');
+      return <ViewRequests />;
     }
   };
 

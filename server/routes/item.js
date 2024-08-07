@@ -55,7 +55,15 @@ router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
         const updates = {
-            $set: req.body
+            $set:  {
+                name: req.body.name,
+                location: req.body.location,
+                description: req.body.description,
+                genre: req.body.genre,
+                copyNum: req.body.copyNum,
+                versions: req.body.versions,
+                type: req.body.type,
+            },
         };
 
         let collection = await db.collection("items");

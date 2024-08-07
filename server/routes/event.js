@@ -56,7 +56,17 @@ router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
         const updates = {
-            $set: req.body
+            $set: {
+                name: req.body.name,
+                description: req.body.description,
+                imageLink: req.body.imageLink,
+                date: req.body.date,
+                startTime: req.body.startTime,
+                endTime: req.body.endTime,
+                location: req.body.location,
+                approved: req.body.approved,
+                who_RSVP: [] // Initialize empty array for who RSVP'd
+            }
         };
 
         let collection = await db.collection("events");

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 export default function ProfileView() {
   const [form, setForm] = useState({
@@ -8,7 +10,33 @@ export default function ProfileView() {
     password: '',
     phone_number: '',
   });
+  const [isNew, setIsNew] = useState(true);
   const navigate = useNavigate();
+  const {user, setUser} = useContext(UserContext);
+
+  /*
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        `http://localhost:5050/user/${user.id.toString()}`
+      );
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        console.error(message);
+        return;
+      }
+      const user = await response.json();
+      if (!user) {
+        console.warn(`User with id ${user.id} not found`);
+        navigate("/");
+        return;
+      }
+      setForm(user);
+    }
+    fetchData();
+    return;
+  }, [user.id, navigate]);
+  */
 
   const updateForm = (e) => {
     setForm({

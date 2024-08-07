@@ -15,7 +15,7 @@ const Event = (props) => (
         <div>
           <Link
             className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3 mr-2"
-            to={`./details/${props.event._id}`}
+            to={`./rsvp/${props.event._id}`}
           >
             Details
           </Link>
@@ -25,7 +25,7 @@ const Event = (props) => (
   </tr>
 );
 
-function EventList() {
+function MemberEventList() {
   const [events, setEvents] = useState([]);
 
   // This method fetches the items from the database.
@@ -66,4 +66,4 @@ function EventList() {
   );
 }
 
-export default EventList;
+export default MemberEventList;

@@ -20,7 +20,6 @@ import Navbar from "./components/Navbar"
 import ProcessReturns from "./components/ProcessReturns";
 import CreateMember from "./components/CreateMember";
 import EmployeeCalendar from "./components/EmployeeCalendar";
-import DeleteAccount from "./components/DeleteAccount";
 import AdminNavbar from "./components/AdminNavBar";
 import AdminCalendar from "./components/AdminCalendar";
 import ModifyInventory from "./components/EditInventory";
@@ -28,6 +27,10 @@ import ItemForm from "./components/ItemForm";
 import UpdateEvent from "./components/UpdateEvent";
 import AccountManager from "./components/AccountManager";
 import RsvpPage from "./components/RsvpPage";
+import MemberInventorySearch from "./components/MemberInventorySearch"
+import InventoryDetails from "./components/InventoryDetails";
+import EventDetails from "./components/EventDetails";
+import MemberEvents from "./components/MemberEvents";
 
 const router = createBrowserRouter([
   {
@@ -49,12 +52,32 @@ const router = createBrowserRouter([
             element: <LoginForm />,
           },
           {
-            path: "/inventory",
-            element: <InventorySearch />,
+            path: "/inventory/*",
+            element: <App />,
+            children: [
+              {
+                path: "",
+                element: <InventorySearch />,
+              },
+              {
+                path: "details/:id",
+                element: <InventoryDetails />
+              }
+            ]
           },
           {
             path: "/calendar",
-            element: <EventsPage />,
+            element: <App />,
+            children: [
+              {
+                path: "",
+                element: <EventsPage />,
+              },
+              {
+                path: "details/:id",
+                element: <EventDetails />
+              }
+            ]
           },
           {
             path: "/login",
@@ -88,7 +111,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <EventsPage />,
+                element: <MemberEvents />,
               },
               {
                 path: "rsvp/:id",
@@ -102,7 +125,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <InventorySearch />,
+                element: <MemberInventorySearch />,
               },
               {
                 path: "checkout/:id",

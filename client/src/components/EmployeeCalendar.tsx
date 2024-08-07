@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
-import EventsPage from './EventsPage';
+import MemberEvents from './MemberEvents';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -12,11 +12,11 @@ function EmployeeCalendar() {
 
   const renderContent = () => {
     if (activeTab === 'view') {
-      return <EventsPage />;
+      return <MemberEvents />;
     } else if (activeTab === 'create') {
       return <CreateEvent />;
     } else{
-      return <EventsPage />;
+      return <MemberEvents />;
     }
   };
 
